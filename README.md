@@ -1,2 +1,2 @@
 # quiz-game
-A simple quiz game in go
+A quiz system implemented in go.
