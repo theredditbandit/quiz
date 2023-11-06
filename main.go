@@ -23,9 +23,12 @@ func main() {
 		exit("Could not parse provided csv")
 	}
 
-	probarr := parseLines(lines)
+	probarr := parseLines(lines) // array of problem type
 
-	fmt.Println(probarr)
+	marks := questionUser(probarr)
+
+	fmt.Printf("You scored %d/%d correct!\n",marks,len(probarr))
+
 }
 
 func exit(msg string) {
@@ -48,4 +51,21 @@ func parseLines(lines [][]string) []problem {
 
 	}
 	return ret
+}
+
+// takes in a problem array and returns the users marks
+func questionUser(questionarr []problem) int {
+	marks := 0
+	var ans string
+
+	for _,prob := range questionarr {
+		fmt.Print(prob.question,": ")
+		fmt.Scan(&ans)
+		
+		if ans == prob.answer{
+			marks++
+		}
+	}
+
+	return marks
 }
