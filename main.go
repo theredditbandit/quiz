@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
 	"flag"
 	"fmt"
 	"os"
+	"quiz/static"
+	"quiz/utils"
+	"strings"
 )
 
 func main() {
@@ -13,79 +17,66 @@ func main() {
 	file, err := os.Open(*problemFile)
 
 	if err != nil {
-		exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *problemFile))
+		utils.Exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *problemFile))
 	}
 
 	filereader := csv.NewReader(file)
 	lines, err := filereader.ReadAll()
 
 	if err != nil {
-		exit("Could not parse provided csv")
+		utils.Exit("Could not parse provided csv")
 	}
 
 	probarr := parseLines(lines) // array of problem type
 
-	sol := questionUser(probarr)
+	marks , err := questionUser(probarr)
+	
+	fmt.Printf("You got %d/%d correct!\n", marks, len(probarr))
 
-	fmt.Printf("You got %d/%d correct!\n", sol.marks, len(probarr))
 
-	if len(sol.err) != 0 {
-		for _, val := range sol.err {
-			fmt.Println("Question ", val.question.question, "expected answer ", val.question.answer, "instead got ", val.useranswer)
-		}
-
+	if err != nil {
+		userErrs, _ := err.(static.UserErrors)
+		userErrs.PrintErrors()
 	}
-
 }
 
-func exit(msg string) {
-	fmt.Println(msg)
-	os.Exit(1)
-}
-
-type problem struct {
-	question string
-	answer   string
-}
-
-type userSol struct {
-	marks int
-	err   []usererr
-}
-
-type usererr struct {
-	question   problem
-	useranswer string
-}
-
-func parseLines(lines [][]string) []problem {
-	ret := make([]problem, len(lines))
+func parseLines(lines [][]string) []static.Problem {
+	ret := make([]static.Problem, len(lines))
 	question := 0
 	answer := 1
 	for idx, qa := range lines {
-		ret[idx].question = qa[question]
-		ret[idx].answer = qa[answer]
+		ret[idx].Question = qa[question]
+		ret[idx].Answer = qa[answer]
 
 	}
 	return ret
 }
 
 // takes in a problem array and returns the users marks
-func questionUser(questionarr []problem) userSol {
-	var sol userSol
-	sol.marks = 0
+func questionUser(questionarr []static.Problem) (int, error) {
 
-	var ans string
+	marks := 0
+	reader := bufio.NewReader(os.Stdin)
+	var err []static.UserErr
+	var userErrors static.UserErrors
 
 	for _, prob := range questionarr {
-		fmt.Print(prob.question, ": ")
-		fmt.Scan(&ans)
-		if ans == prob.answer {
-			sol.marks++
+		fmt.Print(prob.Question, ": ")
+		ans, _ := reader.ReadString('\n')
+		ans = strings.TrimSpace(ans)
+		if ans == prob.Answer {
+			marks++
 		} else {
-			sol.err = append(sol.err, usererr{question: prob, useranswer: ans})
+			err = append(err, static.UserErr{GivenProb: prob, UserAns: ans})
 		}
 	}
 
-	return sol
+	if len(err) > 0 {
+		userErrors.Code = len(err)
+		userErrors.Msg = "You have Mistakes" 
+		userErrors.Errors = err
+		return marks , userErrors
+	}
+
+	return marks , nil
 }
