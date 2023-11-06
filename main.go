@@ -20,26 +20,27 @@ func main() {
 		utils.Exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *problemFile))
 	}
 
-	filereader := csv.NewReader(file)
-	lines, err := filereader.ReadAll()
+	reader := csv.NewReader(file)
+	lines, err := reader.ReadAll()
 
 	if err != nil {
 		utils.Exit("Could not parse provided csv")
 	}
 
-	probarr := parseLines(lines) // array of problem type
+	problems := parseLines(lines) // array of problem type
 
-	marks , err := questionUser(probarr)
-	
-	fmt.Printf("You got %d/%d correct!\n", marks, len(probarr))
+	marks, err := questionUser(problems)
 
+	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 
 	if err != nil {
-		userErrs, _ := err.(static.UserErrors)
+		userErrs, _ := err.(static.QuizErrors)
 		userErrs.PrintErrors()
 	}
 }
 
+// takes a 2d array of type [ [q1 ,a1], [q2 ,a2] . . . ] and
+// returns an array of type static.Problem
 func parseLines(lines [][]string) []static.Problem {
 	ret := make([]static.Problem, len(lines))
 	question := 0
@@ -52,31 +53,31 @@ func parseLines(lines [][]string) []static.Problem {
 	return ret
 }
 
-// takes in a problem array and returns the users marks
-func questionUser(questionarr []static.Problem) (int, error) {
+// takes in a problem array and prints the questions, returns marks and errors
+func questionUser(questions []static.Problem) (int, error) {
 
 	marks := 0
 	reader := bufio.NewReader(os.Stdin)
-	var err []static.UserErr
-	var userErrors static.UserErrors
+	var errors []static.UserError
+	var qErrors static.QuizErrors
 
-	for _, prob := range questionarr {
-		fmt.Print(prob.Question, ": ")
+	for _, problem := range questions {
+		fmt.Print(problem.Question, ": ")
 		ans, _ := reader.ReadString('\n')
 		ans = strings.TrimSpace(ans)
-		if ans == prob.Answer {
+		if ans == problem.Answer {
 			marks++
 		} else {
-			err = append(err, static.UserErr{GivenProb: prob, UserAns: ans})
+			errors = append(errors, static.UserError{GivenProb: problem, UserAns: ans})
 		}
 	}
 
-	if len(err) > 0 {
-		userErrors.Code = len(err)
-		userErrors.Msg = "You have Mistakes" 
-		userErrors.Errors = err
-		return marks , userErrors
+	if len(errors) > 0 {
+		qErrors.Code = len(errors)
+		qErrors.Msg = "You have Mistakes"
+		qErrors.Errors = errors
+		return marks, qErrors
 	}
 
-	return marks , nil
+	return marks, nil
 }

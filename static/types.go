@@ -9,26 +9,28 @@ type Problem struct {
 	Answer   string
 }
 
-type UserErr struct {
+// an error made by the user in answering the question
+type UserError struct {
 	GivenProb Problem
 	UserAns   string
 }
 
-type UserErrors struct {
-	Code int
-	Msg string
-	Errors []UserErr
+// a collection of UserError type , also has number of questions answered incorrectly along with error message if any
+type QuizErrors struct {
+	Code   int
+	Msg    string
+	Errors []UserError
 }
 
-func (e UserErrors) Error() string {
+func (e QuizErrors) Error() string {
 	if e.Code == 0 {
 		return "nil"
 	}
 
-	return fmt.Sprintf("%s %d",e.Msg,e.Code)
+	return fmt.Sprintf("%s %d", e.Msg, e.Code)
 }
 
-func (e UserErrors) PrintErrors() {
+func (e QuizErrors) PrintErrors() {
 
 	for _, val := range e.Errors {
 		fmt.Println("Question ", val.GivenProb.Question, "expected answer ", val.GivenProb.Answer, "instead got ", val.UserAns)
