@@ -25,9 +25,16 @@ func main() {
 
 	probarr := parseLines(lines) // array of problem type
 
-	marks := questionUser(probarr)
+	sol := questionUser(probarr)
 
-	fmt.Printf("You got %d/%d correct!\n", marks, len(probarr))
+	fmt.Printf("You got %d/%d correct!\n", sol.marks, len(probarr))
+
+	if len(sol.err) != 0 {
+		for _, val := range sol.err {
+			fmt.Println("Question ", val.question.question, "expected answer ", val.question.answer, "instead got ", val.useranswer)
+		}
+
+	}
 
 }
 
@@ -39,6 +46,16 @@ func exit(msg string) {
 type problem struct {
 	question string
 	answer   string
+}
+
+type userSol struct {
+	marks int
+	err   []usererr
+}
+
+type usererr struct {
+	question   problem
+	useranswer string
 }
 
 func parseLines(lines [][]string) []problem {
@@ -54,18 +71,21 @@ func parseLines(lines [][]string) []problem {
 }
 
 // takes in a problem array and returns the users marks
-func questionUser(questionarr []problem) int {
-	marks := 0
+func questionUser(questionarr []problem) userSol {
+	var sol userSol
+	sol.marks = 0
+
 	var ans string
 
 	for _, prob := range questionarr {
 		fmt.Print(prob.question, ": ")
 		fmt.Scan(&ans)
-
 		if ans == prob.answer {
-			marks++
+			sol.marks++
+		} else {
+			sol.err = append(sol.err, usererr{question: prob, useranswer: ans})
 		}
 	}
 
-	return marks
+	return sol
 }
