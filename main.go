@@ -65,7 +65,7 @@ func questionUser(questions []static.Problem) (int, error) {
 		fmt.Print("#",pid+1,")  ",problem.Question, " = ")
 		ans, _ := reader.ReadString('\n')
 		ans = strings.TrimSpace(ans)
-		if ans == problem.Answer {
+		if ans == strings.TrimSpace(problem.Answer) {
 			marks++
 		} else {
 			errors = append(errors, static.UserError{GivenProb: problem, UserAns: ans})
