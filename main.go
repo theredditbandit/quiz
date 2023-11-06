@@ -61,8 +61,8 @@ func questionUser(questions []static.Problem) (int, error) {
 	var errors []static.UserError
 	var qErrors static.QuizErrors
 
-	for _, problem := range questions {
-		fmt.Print(problem.Question, ": ")
+	for pid, problem := range questions {
+		fmt.Print("#",pid+1,")  ",problem.Question, ": ")
 		ans, _ := reader.ReadString('\n')
 		ans = strings.TrimSpace(ans)
 		if ans == problem.Answer {
