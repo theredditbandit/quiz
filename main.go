@@ -27,7 +27,7 @@ func main() {
 
 	marks := questionUser(probarr)
 
-	fmt.Printf("You scored %d/%d correct!\n",marks,len(probarr))
+	fmt.Printf("You got %d/%d correct!\n", marks, len(probarr))
 
 }
 
@@ -58,11 +58,11 @@ func questionUser(questionarr []problem) int {
 	marks := 0
 	var ans string
 
-	for _,prob := range questionarr {
-		fmt.Print(prob.question,": ")
+	for _, prob := range questionarr {
+		fmt.Print(prob.question, ": ")
 		fmt.Scan(&ans)
-		
-		if ans == prob.answer{
+
+		if ans == prob.answer {
 			marks++
 		}
 	}
