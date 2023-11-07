@@ -2,6 +2,7 @@ package static
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Problem struct {
@@ -33,6 +34,6 @@ func (e QuizErrors) Error() string {
 func (e QuizErrors) PrintErrors() {
 
 	for _, val := range e.Errors {
-		fmt.Println("Question ", val.GivenProb.Question, "expected answer ", val.GivenProb.Answer, "instead got ", val.UserAns)
+		fmt.Println("Question ", val.GivenProb.Question, "expected answer ", strings.TrimSpace(val.GivenProb.Answer), "instead got ", val.UserAns)
 	}
 }
