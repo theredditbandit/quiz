@@ -1,7 +1,8 @@
 package types
 
+import "time"
+
 type Problem struct {
-	QuestionNo int
 	Question   string
 	Answer     string
 }
@@ -12,3 +13,7 @@ type UserError struct {
 	UserAns   string
 	QuesNo    int
 }
+
+type ReaderFunc func() (string,error)
+
+type TimerFunc func(d time.Duration) <-chan time.Time

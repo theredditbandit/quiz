@@ -10,25 +10,21 @@ import (
 )
 
 // takes in a problem array and total time limit prints the questions, returns marks and errors
-func QuestionUser(questions []types.Problem, totalTime int) (int, error) {
+func QuestionUser(questions []types.Problem, totalTime int, reader types.ReaderFunc, testTimer types.TimerFunc) (int, error) {
 	marks := 0
 	attempted := 0
-	reader := bufio.NewReader(os.Stdin)
 	var errors []types.UserError
 	var qEval QuizEvaluation
 	answerCh := make(chan string)
-	testTimer := time.NewTimer(time.Duration(totalTime) * time.Second)
-
 	for pid, problem := range questions {
-		fmt.Print(pid+1, ")  ", problem.Question, " = ")
+		fmt.Printf("%d) %s = ", pid+1, problem.Question)
 		go func() {
-			answer, _ := reader.ReadString('\n')
-			answer = strings.TrimSpace(answer)
+			answer, _ := reader()
 			answerCh <- answer
 		}()
 
 		select {
-		case <-testTimer.C:
+		case <-testTimer(time.Duration(totalTime) * time.Second):
 			fmt.Println("\nTime limit reached!")
 			if attempted != len(questions) {
 				// timer ran out , questions missed
@@ -57,4 +53,14 @@ func QuestionUser(questions []types.Problem, totalTime int) (int, error) {
 	}
 
 	return marks, nil
+}
+
+func ConsoleReader() (string, error) {
+	reader := bufio.NewReader(os.Stdin)
+	answer, err := reader.ReadString('\n')
+	return strings.TrimSpace(answer), err
+}
+
+func QuizTimer(d time.Duration) <-chan time.Time {
+	return time.After(d)
 }

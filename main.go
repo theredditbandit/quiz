@@ -18,13 +18,13 @@ func main() {
 	file, err := os.Open(*problemFile)
 
 	if err != nil {
-		utils.Exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *problemFile))
+		utils.ExitWithMessage(fmt.Sprintf("Failed to open the CSV file: %s\n", *problemFile), 1)
 	}
 	reader := csv.NewReader(file)
 	lines, err := reader.ReadAll()
 
 	if err != nil {
-		utils.Exit("Could not parse provided csv")
+		utils.ExitWithMessage("Could not parse provided csv", 1)
 	}
 	problems := parsers.ParseLines(lines) // array of problem type
 
@@ -34,7 +34,7 @@ func main() {
 		})
 	}
 
-	marks, err := utils.QuestionUser(problems, *testTime)
+	marks, err := utils.QuestionUser(problems, *testTime, utils.ConsoleReader, utils.QuizTimer)
 	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 
 	if err != nil {
