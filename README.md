@@ -14,6 +14,7 @@ A quiz system implemented in go.
     - [ ] only one answer correct schema
     - [ ] Multiple correct answers schema
 - [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
+- [ ] Add support to skip questions entirely
 - [ ] Testing (optional)
 # Working
 ![Alt text](imgs/image.png)
