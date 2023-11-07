@@ -2,10 +2,10 @@ package static
 
 import (
 	"fmt"
-	"strings"
 )
 
 type Problem struct {
+	QuestionNo int
 	Question string
 	Answer   string
 }
@@ -14,6 +14,7 @@ type Problem struct {
 type UserError struct {
 	GivenProb Problem
 	UserAns   string
+	QuesNo    int
 }
 
 // a collection of UserError type , also has number of questions answered incorrectly along with error message if any
@@ -34,6 +35,6 @@ func (e QuizErrors) Error() string {
 func (e QuizErrors) PrintErrors() {
 
 	for _, val := range e.Errors {
-		fmt.Println("Question ", val.GivenProb.Question, "expected answer ", strings.TrimSpace(val.GivenProb.Answer), "instead got ", val.UserAns)
+		fmt.Print("Question #", val.QuesNo, " ", val.GivenProb.Question, " expected answer ", val.GivenProb.Answer, " instead got ", val.UserAns, "\n" )
 	}
 }
