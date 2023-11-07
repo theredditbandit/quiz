@@ -6,8 +6,8 @@ import (
 
 type Problem struct {
 	QuestionNo int
-	Question string
-	Answer   string
+	Question   string
+	Answer     string
 }
 
 // an error made by the user in answering the question
@@ -17,24 +17,33 @@ type UserError struct {
 	QuesNo    int
 }
 
-// a collection of UserError type , also has number of questions answered incorrectly along with error message if any
-type QuizErrors struct {
-	Code   int
-	Msg    string
-	Errors []UserError
+// a type that holds marks scored , collection of UserErrors occoured and attempted questions
+type QuizEvaluation struct {
+	Attempted            int
+	Unattempted 		 bool
+	IncorrectlyAttempted []UserError
+	UnattemptedQuestions []Problem
 }
 
-func (e QuizErrors) Error() string {
-	if e.Code == 0 {
+func (e QuizEvaluation) Error() string {
+	if len(e.IncorrectlyAttempted) == 0 {
 		return "nil"
 	}
 
-	return fmt.Sprintf("%s %d", e.Msg, e.Code)
+	return fmt.Sprintf("%d", len(e.IncorrectlyAttempted))
 }
 
-func (e QuizErrors) PrintErrors() {
+func (e QuizEvaluation) PrintErrors() {
 
-	for _, val := range e.Errors {
-		fmt.Print("Question #", val.QuesNo, " ", val.GivenProb.Question, " expected answer ", val.GivenProb.Answer, " instead got ", val.UserAns, "\n" )
+	for _, val := range e.IncorrectlyAttempted {
+		fmt.Print("Question #", val.QuesNo, " ", val.GivenProb.Question, " expected answer ", val.GivenProb.Answer, " instead got ", val.UserAns, "\n")
+	}
+}
+
+func (e QuizEvaluation) PrintUnattempted() {
+	fmt.Println("You missed the following questions.")
+	for _, val := range e.UnattemptedQuestions {
+		e.Attempted++
+		fmt.Printf("%d) %s \n",e.Attempted, val.Question)
 	}
 }

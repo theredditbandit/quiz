@@ -9,10 +9,12 @@ import (
 	"quiz/static"
 	"quiz/utils"
 	"strings"
+	"time"
 )
 
 func main() {
 	problemFile := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer'")
+	testTime := flag.Int("time", 3, "Specifies the total time the quiz is going to run for.")
 	flag.Parse()
 	file, err := os.Open(*problemFile)
 
@@ -29,13 +31,17 @@ func main() {
 
 	problems := parseLines(lines) // array of problem type
 
-	marks, err := questionUser(problems)
+	marks, err := questionUser(problems, *testTime)
 
 	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 
 	if err != nil {
-		userErrs, _ := err.(static.QuizErrors)
+		userErrs, _ := err.(static.QuizEvaluation)
 		userErrs.PrintErrors()
+
+		if userErrs.Unattempted {
+			userErrs.PrintUnattempted()	
+		}
 	}
 }
 
@@ -53,30 +59,51 @@ func parseLines(lines [][]string) []static.Problem {
 	return ret
 }
 
-// takes in a problem array and prints the questions, returns marks and errors
-func questionUser(questions []static.Problem) (int, error) {
-
+// takes in a problem array and total time limit prints the questions, returns marks and errors
+func questionUser(questions []static.Problem, totalTime int) (int, error) {
 	marks := 0
+	attempted := 0
 	reader := bufio.NewReader(os.Stdin)
 	var errors []static.UserError
-	var qErrors static.QuizErrors
+	var qEval static.QuizEvaluation
+	answerCh := make(chan string)
+	testTimer := time.NewTimer(time.Duration(totalTime) * time.Second)
 
 	for pid, problem := range questions {
-		fmt.Print(pid+1,")  ",problem.Question, " = ")
-		ans, _ := reader.ReadString('\n')
-		ans = strings.TrimSpace(ans)
-		if ans == strings.TrimSpace(problem.Answer) {
-			marks++
-		} else {
-			errors = append(errors, static.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid+1})
+		fmt.Print(pid+1, ")  ", problem.Question, " = ")
+		go func() {
+			answer, _ := reader.ReadString('\n')
+			answer = strings.TrimSpace(answer)
+			answerCh <- answer
+		}()
+
+		select {
+		case <-testTimer.C:
+			fmt.Println("\nTime limit reached!")
+			if attempted != len(questions) {
+				// timer ran out , questions missed
+				qEval.UnattemptedQuestions = questions[attempted:]
+				qEval.Unattempted = true
+				qEval.Attempted = attempted
+			}
+			if len(errors) > 0 {
+				qEval.IncorrectlyAttempted = errors
+			}
+			return marks, qEval
+
+		case ans := <-answerCh:
+			attempted++
+			if ans == strings.TrimSpace(problem.Answer) {
+				marks++
+			} else {
+				errors = append(errors, static.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid + 1})
+			}
 		}
 	}
 
 	if len(errors) > 0 {
-		qErrors.Code = len(errors)
-		qErrors.Msg = "You have Mistakes"
-		qErrors.Errors = errors
-		return marks, qErrors
+		qEval.IncorrectlyAttempted = errors
+		return marks, qEval
 	}
 
 	return marks, nil
