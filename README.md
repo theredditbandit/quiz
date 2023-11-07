@@ -3,7 +3,7 @@ A quiz system implemented in go.
 
 
 # TODO
-- [ ] Add support for setting timers 
+- [x] Add support for setting quiz timers 
 - [ ] Migrate to cobra instead of flags for arguments
 - [ ] Add support for per question time using tickers
 - [ ] Add support for displaying individual time limit using profress bars ref (bubbles/bubbletea)
