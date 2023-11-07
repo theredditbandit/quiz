@@ -18,4 +18,4 @@ A quiz system implemented in go.
 - [ ] Testing (optional)
   
 # Pictures
-![Alt text](imgs/image.png)
+![image](https://github.com/theredditbandit/quiz/assets/85390033/91371eda-324c-4c64-bb15-bea25ef3cbf5)
