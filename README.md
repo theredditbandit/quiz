@@ -16,5 +16,6 @@ A quiz system implemented in go.
 - [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
 - [ ] Add support to skip questions entirely
 - [ ] Testing (optional)
-# Working
+  
+# Pictures
 ![Alt text](imgs/image.png)

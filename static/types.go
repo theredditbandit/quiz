@@ -36,8 +36,9 @@ func (e QuizEvaluation) Error() string {
 func (e QuizEvaluation) PrintErrors() {
 
 	for _, val := range e.IncorrectlyAttempted {
-		fmt.Print("Question #", val.QuesNo, " ", val.GivenProb.Question, " expected answer ", val.GivenProb.Answer, " instead got ", val.UserAns, "\n")
+		fmt.Print("Question ", val.QuesNo, ") ", val.GivenProb.Question, " expected answer ", val.GivenProb.Answer, " instead got ", val.UserAns, "\n")
 	}
+	fmt.Println()
 }
 
 func (e QuizEvaluation) PrintUnattempted() {
