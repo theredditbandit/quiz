@@ -16,7 +16,7 @@ func TestQuestionUser(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		marks    int
+		marks   int
 		wantErr bool
 	}{
 		{
@@ -36,7 +36,7 @@ func TestQuestionUser(t *testing.T) {
 					return time.After(1 * time.Second)
 				},
 			},
-			marks:    1,
+			marks:   1,
 			wantErr: false,
 		},
 		{
@@ -56,7 +56,7 @@ func TestQuestionUser(t *testing.T) {
 					return time.After(1 * time.Second)
 				},
 			},
-			marks:    0,
+			marks:   0,
 			wantErr: true,
 		},
 		{
@@ -76,7 +76,7 @@ func TestQuestionUser(t *testing.T) {
 					return time.After(2 * time.Second)
 				},
 			},
-			marks:    0,
+			marks:   0,
 			wantErr: true,
 		},
 	}
