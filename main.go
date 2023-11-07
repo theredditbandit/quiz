@@ -40,7 +40,7 @@ func main() {
 		userErrs.PrintErrors()
 
 		if userErrs.Unattempted {
-			userErrs.PrintUnattempted()	
+			userErrs.PrintUnattempted()
 		}
 	}
 }

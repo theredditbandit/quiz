@@ -20,7 +20,7 @@ type UserError struct {
 // a type that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
-	Unattempted 		 bool
+	Unattempted          bool
 	IncorrectlyAttempted []UserError
 	UnattemptedQuestions []Problem
 }
@@ -44,6 +44,6 @@ func (e QuizEvaluation) PrintUnattempted() {
 	fmt.Println("You missed the following questions.")
 	for _, val := range e.UnattemptedQuestions {
 		e.Attempted++
-		fmt.Printf("%d) %s \n",e.Attempted, val.Question)
+		fmt.Printf("%d) %s \n", e.Attempted, val.Question)
 	}
 }
