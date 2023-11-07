@@ -1,4 +1,4 @@
-package static
+package types
 
 type Problem struct {
 	QuestionNo int

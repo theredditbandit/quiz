@@ -2,14 +2,15 @@ package utils
 
 import (
 	"fmt"
-	"quiz/static"
+	"quiz/types"
 )
+
 // a type that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
 	Unattempted          bool
-	IncorrectlyAttempted []static.UserError
-	UnattemptedQuestions []static.Problem
+	IncorrectlyAttempted []types.UserError
+	UnattemptedQuestions []types.Problem
 }
 
 func (e QuizEvaluation) Error() string {
@@ -35,4 +36,3 @@ func (e QuizEvaluation) PrintUnattempted() {
 		fmt.Printf("%d) %s \n", e.Attempted, val.Question)
 	}
 }
-

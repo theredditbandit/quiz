@@ -1,20 +1,20 @@
 package utils
 
 import (
-	"fmt"
-	"quiz/static"
-	"time"
 	"bufio"
-	"strings"
+	"fmt"
 	"os"
+	"quiz/types"
+	"strings"
+	"time"
 )
 
 // takes in a problem array and total time limit prints the questions, returns marks and errors
-func QuestionUser(questions []static.Problem, totalTime int) (int, error) {
+func QuestionUser(questions []types.Problem, totalTime int) (int, error) {
 	marks := 0
 	attempted := 0
 	reader := bufio.NewReader(os.Stdin)
-	var errors []static.UserError
+	var errors []types.UserError
 	var qEval QuizEvaluation
 	answerCh := make(chan string)
 	testTimer := time.NewTimer(time.Duration(totalTime) * time.Second)
@@ -46,7 +46,7 @@ func QuestionUser(questions []static.Problem, totalTime int) (int, error) {
 			if ans == strings.TrimSpace(problem.Answer) {
 				marks++
 			} else {
-				errors = append(errors, static.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid + 1})
+				errors = append(errors, types.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid + 1})
 			}
 		}
 	}
