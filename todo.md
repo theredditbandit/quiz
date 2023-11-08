@@ -6,11 +6,11 @@
 - [ ] Add support for per question time using tickers
 - [ ] Add support for displaying individual time limit using profress bars ref (bubbles/bubbletea)
 - [ ] Add support for different question formats
-  - [ ] Migrate to JSON instead of csv for question format
-  - [ ] Implement various acceptable question answer type schemas
-  - [ ] Support for MCQ type questions
+  - [ ] Add support for JSON question format to support MCQ questions
     - [ ] only one answer correct schema
     - [ ] Multiple correct answers schema
+  - [ ] `generate` command in the quiz app to generate boilerplate json for McQ and other type questions
+  - [ ] Implement data validators that validate the schema of given problem.csv/json, find go equivalent of pydantic
 - [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
 - [ ] Add support to skip questions entirely
-- [ ] Testing (optional)
+- [x] Unit Tests (optional)
