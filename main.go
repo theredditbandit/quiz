@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		utils.ExitWithMessage("Could not parse provided csv", 1)
 	}
-	problems := parsers.ParseLines(lines) // array of problem type
+	problems := parsers.ParseLines(lines)
 	if *shuffle {
 		rand.Shuffle(len(problems), func(i, j int) {
 			problems[i], problems[j] = problems[j], problems[i]

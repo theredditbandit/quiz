@@ -29,6 +29,7 @@ func (e QuizEvaluation) PrintErrors() {
 	fmt.Println()
 }
 
+// Print unattempted questions after time runs out.
 func (e QuizEvaluation) PrintUnattempted() {
 	fmt.Println("You missed the following questions.")
 	for _, val := range e.UnattemptedQuestions {
