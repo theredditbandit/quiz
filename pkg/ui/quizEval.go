@@ -1,16 +1,16 @@
-package utils
+package ui
 
 import (
 	"fmt"
-	"quiz/types"
+	"quiz/pkg/customTypes"
 )
 
 // a type that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
 	Unattempted          bool
-	IncorrectlyAttempted []types.UserError
-	UnattemptedQuestions []types.Problem
+	IncorrectlyAttempted []customTypes.UserError
+	UnattemptedQuestions []customTypes.Problem
 }
 
 func (e QuizEvaluation) Error() string {

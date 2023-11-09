@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"math/rand"
-	"quiz/customErrors"
+	"quiz/pkg/customErrors"
+	"quiz/pkg/customTypes"
 	"quiz/pkg/fileHandler"
-	"quiz/types"
-	"quiz/utils"
+	"quiz/pkg/ui"
+	"quiz/pkg/utils"
 )
 
 var (
@@ -41,7 +42,7 @@ var testCmd = &cobra.Command{
 		}
 
 		timeConf := handleTimeConf(time, sec, min, hour)
-		marks, err := utils.QuestionUser(questions, timeConf, utils.ConsoleReader, utils.QuizTimer)
+		marks, err := ui.QuestionUser(questions, timeConf, ui.ConsoleReader, ui.QuizTimer)
 		printMarksHandleErrors(marks, err, questions)
 	},
 }
@@ -53,10 +54,10 @@ func init() {
 	rootCmd.AddCommand(testCmd)
 }
 
-func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
+func printMarksHandleErrors(marks int, errors error, problems []customTypes.Problem) {
 	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 	if errors != nil {
-		userErrs, _ := errors.(utils.QuizEvaluation)
+		userErrs, _ := errors.(ui.QuizEvaluation)
 		userErrs.PrintErrors()
 		if userErrs.Unattempted {
 			userErrs.PrintUnattempted()
@@ -64,8 +65,8 @@ func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
 	}
 }
 
-func handleTimeConf(time int, sec bool, min bool, hour bool) types.TimeConf {
-	tconf := types.TimeConf{Time: time, Unit: "sec"}
+func handleTimeConf(time int, sec bool, min bool, hour bool) customTypes.TimeConf {
+	tconf := customTypes.TimeConf{Time: time, Unit: "sec"}
 
 	if min {
 		tconf.Unit = "min"

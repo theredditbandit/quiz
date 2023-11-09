@@ -11,16 +11,16 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
-	"quiz/customErrors"
-	"quiz/types"
-	"quiz/utils"
-	"quiz/utils/parsers"
-	"quiz/utils/validators"
+	"quiz/pkg/customErrors"
+	"quiz/pkg/customTypes"
+	"quiz/pkg/parsers"
+	"quiz/pkg/utils"
+	"quiz/pkg/validators"
 	"strings"
 )
 
 // get questions from the file
-func GetQuestions(args []string) ([]types.Problem, error) {
+func GetQuestions(args []string) ([]customTypes.Problem, error) {
 	file := args[0]
 	fileType := getFileType(file)
 

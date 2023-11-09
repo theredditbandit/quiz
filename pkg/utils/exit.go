@@ -1,3 +1,5 @@
+// this package will just contain utility functions that will be (re)used all over the program
+
 package utils
 
 import (
