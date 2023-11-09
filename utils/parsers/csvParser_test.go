@@ -33,7 +33,7 @@ func TestParseLines(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ParseLines(tt.args.lines); !reflect.DeepEqual(got, tt.want) {
+			if got := LinesToProblems(tt.args.lines); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ParseLines() = %v, want %v", got, tt.want)
 			}
 		})

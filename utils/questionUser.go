@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"quiz/types"
 	"strings"
@@ -10,7 +11,7 @@ import (
 )
 
 // takes in a problem array and total time limit prints the questions, returns marks and errors
-func QuestionUser(questions []types.Problem, totalTime int, reader types.ReaderFunc, testTimer types.TimerFunc) (int, error) {
+func QuestionUser(questions []types.Problem, totalTime types.TimeConf, reader types.ReaderFunc, testTimer types.TimerFunc) (int, error) {
 	marks := 0
 	attempted := 0
 	var errors []types.UserError
@@ -24,7 +25,7 @@ func QuestionUser(questions []types.Problem, totalTime int, reader types.ReaderF
 		}()
 
 		select {
-		case <-testTimer(time.Duration(totalTime) * time.Second):
+		case <-testTimer(totalTime):
 			fmt.Println("\nTime limit reached!")
 			if attempted != len(questions) {
 				// timer ran out , questions missed
@@ -61,6 +62,22 @@ func ConsoleReader() (string, error) {
 	return strings.TrimSpace(answer), err
 }
 
-func QuizTimer(d time.Duration) <-chan time.Time {
-	return time.After(d)
+func QuizTimer(tconf types.TimeConf) <-chan time.Time {
+	qtime := tconf.Time
+	var t time.Duration
+	if qtime > 0 {
+		switch tconf.Unit {
+		case "sec":
+			t = time.Duration(qtime) * time.Second
+		case "min":
+			t = time.Duration(qtime) * time.Minute
+		case "hour":
+			t = time.Duration(qtime) * time.Hour
+		}
+
+	} else {
+		t = time.Duration(math.MaxInt64)
+	}
+
+	return time.After(t)
 }

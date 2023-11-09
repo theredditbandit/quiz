@@ -16,4 +16,9 @@ type UserError struct {
 
 type ReaderFunc func() (string, error)
 
-type TimerFunc func(d time.Duration) <-chan time.Time
+type TimerFunc func(t TimeConf) <-chan time.Time
+
+type TimeConf struct {
+	Time int
+	Unit string
+}
