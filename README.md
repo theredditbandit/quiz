@@ -6,7 +6,7 @@ A quiz system implemented in go.
 - [x] Add option to shuffle questions.
 - [x] refactor again
 - [x] Migrate to cobra instead of flags for arguments.
-- [ ] finish adding support for file schema validators (CSV)
+- [x] finish adding support for file schema validators (CSV)
 - [ ] Add support for JSON question format/schema to support MCQ questions
   - [ ] only one answer correct schema
   - [ ] Multiple correct answers schema
