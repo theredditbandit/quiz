@@ -4,7 +4,7 @@ A quiz system implemented in go.
 
 # Installation
 
-### Make sure you have go installed
+### Make sure you have [go](https://go.dev/) installed
 
 ### Clone the repo
     git clone https://github.com/theredditbandit/quiz.git
