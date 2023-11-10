@@ -7,8 +7,9 @@ import (
 	"quiz/pkg/customErrors"
 	"quiz/pkg/customTypes"
 	"quiz/pkg/fileHandler"
-	"quiz/pkg/ui"
+	"quiz/pkg/testUser"
 	"quiz/pkg/utils"
+	"quiz/pkg/validators"
 )
 
 var (
@@ -21,7 +22,8 @@ var (
 
 var testCmd = &cobra.Command{
 	Use:   "test",
-	Short: "Takes a file containing the test questions as an argument",
+	Short: "Takes a file containing the test questions as an argument.",
+	Long:  fmt.Sprintf("Takes either a CSV of format (question,answer) or a JSON file of format %+v", validators.JsonSchema),
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		questions, err := filehandler.GetQuestions(args)
@@ -42,7 +44,7 @@ var testCmd = &cobra.Command{
 		}
 
 		timeConf := handleTimeConf(time, sec, min, hour)
-		marks, err := ui.QuestionUser(questions, timeConf, ui.ConsoleReader, ui.QuizTimer)
+		marks, err := testUser.QuestionUser(questions, timeConf, testUser.ConsoleReader, testUser.QuizTimer)
 		printMarksHandleErrors(marks, err, questions)
 	},
 }
@@ -57,7 +59,7 @@ func init() {
 func printMarksHandleErrors(marks int, errors error, problems []customTypes.Problem) {
 	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 	if errors != nil {
-		userErrs, _ := errors.(ui.QuizEvaluation)
+		userErrs, _ := errors.(testUser.QuizEvaluation)
 		userErrs.PrintErrors()
 		if userErrs.Unattempted {
 			userErrs.PrintUnattempted()

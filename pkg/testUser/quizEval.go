@@ -1,11 +1,11 @@
-package ui
+package testUser
 
 import (
 	"fmt"
 	"quiz/pkg/customTypes"
 )
 
-// a type that holds marks scored , collection of UserErrors occoured and attempted questions
+// error class that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
 	Unattempted          bool

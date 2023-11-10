@@ -16,13 +16,12 @@ import (
 	"quiz/pkg/parsers"
 	"quiz/pkg/utils"
 	"quiz/pkg/validators"
-	"strings"
 )
 
 // get questions from the file
 func GetQuestions(args []string) ([]customTypes.Problem, error) {
 	file := args[0]
-	fileType := getFileType(file)
+	fileType := utils.GetFileType(file)
 
 	if fileType == "csv" || fileType == "json" {
 		if validators.IsValid(file) {
@@ -43,14 +42,4 @@ func GetQuestions(args []string) ([]customTypes.Problem, error) {
 	} else {
 		return nil, customerrors.InvalidFileTypeError
 	}
-}
-
-func getFileType(fileName string) (fileType string) {
-	defer func() {
-		if r := recover(); r != nil {
-			fileType = "invalid"
-		}
-	}()
-	fsplit := strings.Split(fileName, ".")
-	return fsplit[1]
 }

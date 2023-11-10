@@ -1,6 +1,16 @@
 package validators
 
+import "quiz/pkg/utils"
+
 // returns true if schema of provided file matches supported csv schema
-func IsValid(csvfile string) bool {
-	return true // TODO:  finish implementation , use polymorphism so validator can automagically detect which filetype is supplied and use appropriate validation
+func IsValid(file string) bool {
+	switch utils.GetFileType(file) {
+	case "csv":
+		return csvValidator(file)
+	case "json":
+		return jsonValidator(file)
+	default:
+		return false
+	}
+
 }
