@@ -24,6 +24,7 @@ A quiz system implemented in go.
 # Installation
 
 ### Make sure you have go installed
+
 ### Clone the repo
     git clone https://github.com/theredditbandit/quiz.git
 ### Navigate into the cloned directory 
