@@ -25,14 +25,15 @@ A quiz system implemented in go.
 
 ### Make sure you have go installed
 ### Clone the repo
-```git clone https://github.com/theredditbandit/quiz.git```
-### Navigate into the cloned directory and download the dependencies
-```cd quiz```
-```go mod install```
+    git clone https://github.com/theredditbandit/quiz.git
+### Navigate into the cloned directory 
+    cd quiz
+### Download the dependencies
+    go mod install
 ### Compile the binary
-```go build .```
+    go build .
 ### Or install system wide using
-```go install ```
+    go install 
 
 
 # Pictures
