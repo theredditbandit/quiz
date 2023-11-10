@@ -17,6 +17,7 @@ A quiz system implemented in go.
 - [ ] Add support to skip questions entirely
 - [ ] Add support to generate quiz reports
 - [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
+- [ ] Change filenames to snake_case from camelCase or MixedCase
 - [x] Unit Tests (optional)
   
 # Pictures
