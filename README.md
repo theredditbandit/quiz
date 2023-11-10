@@ -28,3 +28,15 @@ A quiz system implemented in go.
 ![image](https://github.com/theredditbandit/quiz/assets/85390033/153b5555-f2e3-4c4e-acb7-4fcce081f16f)
 
 
+# Build from source
+
+- ### Make sure you have go installed
+- ### Clone the repo
+  - `git clone https://github.com/theredditbandit/quiz.git`
+- ### Navigate into the cloned directory and download the dependencies
+  - `cd quiz`
+  - `go mod install`
+- ### Compile the binary
+  - `go build .`
+- ### Or install system wide using
+  - `go install `
