@@ -10,7 +10,6 @@ A quiz system implemented in go.
 - [ ] Add support for JSON question format/schema to support MCQ questions
   - [ ] only one answer correct schema
   - [ ] Multiple correct answers schema
-  - [ ] using polymorphism add support for validating json schema.
 - [ ] Add support for generate command to generate boilerplate for inputting questions
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
 - [ ] Add support for per question time using tickers , display using progress bars
