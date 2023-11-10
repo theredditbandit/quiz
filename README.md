@@ -23,16 +23,16 @@ A quiz system implemented in go.
 
 # Installation
 
-- ### Make sure you have go installed
-- ### Clone the repo
-  - ```git clone https://github.com/theredditbandit/quiz.git```
-- ### Navigate into the cloned directory and download the dependencies
-  - ```cd quiz```
-  - ```go mod install```
-- ### Compile the binary
-  - ```go build .```
-- ### Or install system wide using
-  - ```go install ```
+### Make sure you have go installed
+### Clone the repo
+```git clone https://github.com/theredditbandit/quiz.git```
+### Navigate into the cloned directory and download the dependencies
+```cd quiz```
+```go mod install```
+### Compile the binary
+```go build .```
+### Or install system wide using
+```go install ```
 
 
 # Pictures
