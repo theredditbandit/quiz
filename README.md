@@ -7,10 +7,11 @@ A quiz system implemented in go.
 - [x] refactor again
 - [x] Migrate to cobra instead of flags for arguments.
 - [x] finish adding support for file schema validators (CSV)
+- [ ] Add support for generate command to generate boilerplate for inputting questions
 - [ ] Add support for JSON question format/schema to support MCQ questions
   - [ ] only one answer correct schema
   - [ ] Multiple correct answers schema
-- [ ] Add support for generate command to generate boilerplate for inputting questions
+  - [ ] do something to pretty print json (implement the schema command)
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
