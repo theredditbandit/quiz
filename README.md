@@ -11,10 +11,11 @@ A quiz system implemented in go.
 - [ ] Add support for JSON question format/schema to support MCQ questions
   - [ ] only one answer correct schema
   - [ ] Multiple correct answers schema
-  - [ ] do something to pretty print json (implement the schema command)
+- [ ] do something to pretty print json (implement the schema command)
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
+- [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes that may be declared in conf or question decleration.
 - [ ] Add support to generate quiz reports
 - [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
