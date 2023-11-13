@@ -2,14 +2,14 @@ package quiz
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"math/rand"
-	"quiz/pkg/customErrors"
-	"quiz/pkg/customTypes"
-	"quiz/pkg/fileHandler"
+	customerrors "quiz/pkg/customErrors"
+	filehandler "quiz/pkg/fileHandler"
 	"quiz/pkg/testUser"
+	"quiz/pkg/types"
 	"quiz/pkg/utils"
-	"quiz/pkg/validators"
+	// "quiz/pkg/validators"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -23,7 +23,7 @@ var (
 var testCmd = &cobra.Command{
 	Use:   "test",
 	Short: "Takes a file containing the test questions as an argument.",
-	Long:  fmt.Sprintf("Takes either a CSV of format (question,answer) or a JSON file of format %+v", validators.JsonSchema),
+	Long:  fmt.Sprintf("Takes either a CSV of format (question,answer) or a JSON file of format"),
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		questions, err := filehandler.GetQuestions(args)
@@ -56,7 +56,7 @@ func init() {
 	rootCmd.AddCommand(testCmd)
 }
 
-func printMarksHandleErrors(marks int, errors error, problems []customTypes.Problem) {
+func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
 	fmt.Printf("You got %d/%d correct!\n", marks, len(problems))
 	if errors != nil {
 		userErrs, _ := errors.(testUser.QuizEvaluation)
@@ -67,8 +67,8 @@ func printMarksHandleErrors(marks int, errors error, problems []customTypes.Prob
 	}
 }
 
-func handleTimeConf(time int, sec bool, min bool, hour bool) customTypes.TimeConf {
-	tconf := customTypes.TimeConf{Time: time, Unit: "sec"}
+func handleTimeConf(time int, sec, min, hour bool) types.TimeConf {
+	tconf := types.TimeConf{Time: time, Unit: "sec"}
 
 	if min {
 		tconf.Unit = "min"
