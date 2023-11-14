@@ -2,5 +2,5 @@ package customerrors
 
 import "errors"
 
-var InvalidSchemaError = errors.New("invalidSchema")
-var InvalidFileTypeError = errors.New("invalidFileType")
+var ErrInvalidSchema = errors.New("invalidSchema")
+var ErrInvalidFileType = errors.New("invalidFileType")

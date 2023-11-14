@@ -2,18 +2,19 @@ package quiz
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"math/rand"
 	customerrors "quiz/pkg/customErrors"
 	filehandler "quiz/pkg/fileHandler"
 	"quiz/pkg/testUser"
 	"quiz/pkg/types"
 	"quiz/pkg/utils"
+
+	"github.com/spf13/cobra"
 )
 
 var (
-	time                    int
-	shuffle, min, hour, sec bool
+	time               int
+	shuffle, min, hour bool
 )
 
 var testCmd = &cobra.Command{
@@ -27,9 +28,9 @@ var testCmd = &cobra.Command{
 		if err != nil {
 
 			switch err {
-			case customerrors.InvalidSchemaError:
+			case customerrors.ErrInvalidSchema:
 				utils.ExitWithMessage("Invalid Schema: Schema of provided file is not valid.", 1)
-			case customerrors.InvalidFileTypeError:
+			case customerrors.ErrInvalidFileType:
 				utils.ExitWithMessage("Invalid File type: only CSV and JSON file formats are supported.", 1)
 				cmd.Help()
 			}
@@ -40,7 +41,7 @@ var testCmd = &cobra.Command{
 			})
 		}
 
-		timeConf := handleTimeConf(time, sec, min, hour)
+		timeConf := handleTimeConf(time, min, hour)
 		marks, err := testUser.QuestionUser(questions, timeConf, testUser.ConsoleReader, testUser.QuizTimer)
 		printMarksHandleErrors(marks, err, questions)
 	},
@@ -64,7 +65,7 @@ func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
 	}
 }
 
-func handleTimeConf(time int, sec, min, hour bool) types.TimeConf {
+func handleTimeConf(time int, min, hour bool) types.TimeConf {
 	tconf := types.TimeConf{Time: time, Unit: "sec"}
 
 	if min {
