@@ -2,13 +2,14 @@ package quiz
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"math/rand"
 	customerrors "quiz/pkg/customErrors"
 	filehandler "quiz/pkg/fileHandler"
 	"quiz/pkg/testUser"
 	"quiz/pkg/types"
 	"quiz/pkg/utils"
+
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -27,9 +28,9 @@ var testCmd = &cobra.Command{
 		if err != nil {
 
 			switch err {
-			case customerrors.InvalidSchemaError:
+			case customerrors.ErrInvalidSchema:
 				utils.ExitWithMessage("Invalid Schema: Schema of provided file is not valid.", 1)
-			case customerrors.InvalidFileTypeError:
+			case customerrors.ErrInvalidFileType:
 				utils.ExitWithMessage("Invalid File type: only CSV and JSON file formats are supported.", 1)
 				cmd.Help()
 			}

@@ -38,9 +38,9 @@ func GetQuestions(args []string) ([]types.Problem, error) {
 			}
 			return parsers.LinesToProblems(lines), nil
 		} else {
-			return nil, customerrors.InvalidSchemaError
+			return nil, customerrors.ErrInvalidSchema
 		}
 	} else {
-		return nil, customerrors.InvalidFileTypeError
+		return nil, customerrors.ErrInvalidFileType
 	}
 }
