@@ -6,8 +6,6 @@ import (
 	"quiz/pkg/utils"
 )
 
-var CSVSchema = []string{"Qno ,Question,Answer"}
-
 func csvValidator(csvFile string) bool {
 	oFile, err := os.Open(csvFile)
 	if err != nil {
@@ -20,9 +18,5 @@ func csvValidator(csvFile string) bool {
 		utils.ExitWithMessage("Something went wrong while reading the CSV , could not validate", 1)
 	}
 
-	if len(firstLine) == 2 {
-		return true
-	} else {
-		return false
-	}
+	return len(firstLine) == 2 // if the first line has 2 columns then it is a valid csv
 }

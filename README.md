@@ -14,6 +14,7 @@ A quiz system implemented in go.
 - [ ] finish implementing json validator
 - [ ] do something to pretty print json (implement the schema command)
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
+- [ ] Add a better csv schema and generate command support for CSVs as well
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
 - [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes that may be declared in conf or question decleration.
