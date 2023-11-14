@@ -3,8 +3,12 @@ package types
 import "time"
 
 type Problem struct {
-	Question string
-	Answer   string
+	QuestionNumber   int
+	AllowMultipleAns bool
+	Question         string
+	Answer           string // leave blank if MCQ
+	Options          map[string]string
+	MCQAnswers       []string
 }
 
 // an error made by the user in answering the question

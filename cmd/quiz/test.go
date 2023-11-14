@@ -2,29 +2,26 @@ package quiz
 
 import (
 	"fmt"
+	"github.com/spf13/cobra"
 	"math/rand"
 	customerrors "quiz/pkg/customErrors"
 	filehandler "quiz/pkg/fileHandler"
 	"quiz/pkg/testUser"
 	"quiz/pkg/types"
 	"quiz/pkg/utils"
-	// "quiz/pkg/validators"
-	"github.com/spf13/cobra"
 )
 
 var (
-	time    int
-	shuffle bool
-	min     bool
-	hour    bool
-	sec     bool
+	time                    int
+	shuffle, min, hour, sec bool
 )
 
 var testCmd = &cobra.Command{
-	Use:   "test",
-	Short: "Takes a file containing the test questions as an argument.",
-	Long:  fmt.Sprintf("Takes either a CSV of format (question,answer) or a JSON file of format"),
-	Args:  cobra.ExactArgs(1),
+	Use:     "test",
+	Aliases: []string{"tst", "t"},
+	Short:   "Takes a file containing the test questions as an argument.",
+	Long:    "Takes either a CSV of format (question,answer) or a JSON file of format \nsee quiz help schema for more information", // [ ]  TODO:  format the `quiz help schema` as markdown using bubbles/tea
+	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		questions, err := filehandler.GetQuestions(args)
 		if err != nil {
@@ -51,7 +48,7 @@ var testCmd = &cobra.Command{
 
 func init() {
 	testCmd.Flags().BoolVar(&shuffle, "shuffle", false, "Whether or not to shuffle the questions")
-	testCmd.Flags().IntVar(&time, "time", 0, "Time limit for the quiz , defaults to untimed quiz") // TODO: make this  configuratble via config file in the future.
+	testCmd.Flags().IntVar(&time, "time", 0, "Time limit for the quiz , defaults to untimed quiz") // [ ] TODO: make this  configuratble via config file in the future.
 
 	rootCmd.AddCommand(testCmd)
 }

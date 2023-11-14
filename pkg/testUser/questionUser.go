@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"quiz/pkg/customTypes"
+	"quiz/pkg/types"
 	"strings"
 	"time"
 )
 
 // takes in a problem array and total time limit prints the questions, returns marks and errors
-func QuestionUser(questions []customTypes.Problem, totalTime customTypes.TimeConf, reader customTypes.ReaderFunc, testTimer customTypes.TimerFunc) (int, error) {
+func QuestionUser(questions []types.Problem, totalTime types.TimeConf, reader types.ReaderFunc, testTimer types.TimerFunc) (int, error) {
 	marks := 0
 	attempted := 0
-	var errors []customTypes.UserError
+	var errors []types.UserError
 	var qEval QuizEvaluation
 	answerCh := make(chan string)
 	for pid, problem := range questions {
@@ -43,7 +43,7 @@ func QuestionUser(questions []customTypes.Problem, totalTime customTypes.TimeCon
 			if ans == strings.TrimSpace(problem.Answer) {
 				marks++
 			} else {
-				errors = append(errors, customTypes.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid + 1})
+				errors = append(errors, types.UserError{GivenProb: problem, UserAns: ans, QuesNo: pid + 1})
 			}
 		}
 	}
@@ -62,7 +62,7 @@ func ConsoleReader() (string, error) {
 	return strings.TrimSpace(answer), err
 }
 
-func QuizTimer(tconf customTypes.TimeConf) <-chan time.Time {
+func QuizTimer(tconf types.TimeConf) <-chan time.Time {
 	qtime := tconf.Time
 	var t time.Duration
 	if qtime > 0 {
