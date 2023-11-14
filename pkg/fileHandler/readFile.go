@@ -18,7 +18,7 @@ import (
 	"quiz/pkg/validators"
 )
 
-// get questions from the file
+// GetQuestions from the file
 func GetQuestions(args []string) ([]types.Problem, error) {
 	file := args[0]
 	fileType := utils.GetFileType(file)

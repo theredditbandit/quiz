@@ -5,7 +5,7 @@ import (
 	"quiz/pkg/types"
 )
 
-// error class that holds marks scored , collection of UserErrors occoured and attempted questions
+// QuizEvaludation: error class that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
 	Unattempted          bool
@@ -29,7 +29,7 @@ func (e QuizEvaluation) PrintErrors() {
 	fmt.Println()
 }
 
-// Print unattempted questions after time runs out.
+// PrintUnattempted questions after time runs out.
 func (e QuizEvaluation) PrintUnattempted() {
 	fmt.Println("You missed the following questions.")
 	for _, val := range e.UnattemptedQuestions {
