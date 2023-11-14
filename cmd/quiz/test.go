@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	time                    int
-	shuffle, min, hour, sec bool
+	time               int
+	shuffle, min, hour bool
 )
 
 var testCmd = &cobra.Command{
@@ -40,7 +40,7 @@ var testCmd = &cobra.Command{
 			})
 		}
 
-		timeConf := handleTimeConf(time, sec, min, hour)
+		timeConf := handleTimeConf(time, min, hour)
 		marks, err := testUser.QuestionUser(questions, timeConf, testUser.ConsoleReader, testUser.QuizTimer)
 		printMarksHandleErrors(marks, err, questions)
 	},
@@ -64,7 +64,7 @@ func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
 	}
 }
 
-func handleTimeConf(time int, sec, min, hour bool) types.TimeConf {
+func handleTimeConf(time int, min, hour bool) types.TimeConf {
 	tconf := types.TimeConf{Time: time, Unit: "sec"}
 
 	if min {
