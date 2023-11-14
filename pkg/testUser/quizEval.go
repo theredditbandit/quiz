@@ -2,15 +2,15 @@ package testUser
 
 import (
 	"fmt"
-	"quiz/pkg/customTypes"
+	"quiz/pkg/types"
 )
 
 // error class that holds marks scored , collection of UserErrors occoured and attempted questions
 type QuizEvaluation struct {
 	Attempted            int
 	Unattempted          bool
-	IncorrectlyAttempted []customTypes.UserError
-	UnattemptedQuestions []customTypes.Problem
+	IncorrectlyAttempted []types.UserError
+	UnattemptedQuestions []types.Problem
 }
 
 func (e QuizEvaluation) Error() string {

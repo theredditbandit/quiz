@@ -3,7 +3,7 @@ package quiz
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"os"
+	"quiz/pkg/utils"
 )
 
 var rootCmd = &cobra.Command{
@@ -18,7 +18,6 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Somethig went wrong '%s'\n", err)
-		os.Exit(1)
+		utils.ExitWithMessage(fmt.Sprintf("Something went wrong '%s'\n", err), 1)
 	}
 }

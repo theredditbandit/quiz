@@ -11,25 +11,26 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
-	"quiz/pkg/customErrors"
-	"quiz/pkg/customTypes"
+	customerrors "quiz/pkg/customErrors"
 	"quiz/pkg/parsers"
+	"quiz/pkg/types"
 	"quiz/pkg/utils"
 	"quiz/pkg/validators"
 )
 
 // get questions from the file
-func GetQuestions(args []string) ([]customTypes.Problem, error) {
+func GetQuestions(args []string) ([]types.Problem, error) {
 	file := args[0]
 	fileType := utils.GetFileType(file)
 
 	if fileType == "csv" || fileType == "json" {
 		if validators.IsValid(file) {
-			openFile, err := os.Open(file)
+			oFile, err := os.Open(file)
 			if err != nil {
 				utils.ExitWithMessage(fmt.Sprintf("Failed to open the CSV file: %s\n", file), 1)
 			}
-			reader := csv.NewReader(openFile)
+			defer oFile.Close()
+			reader := csv.NewReader(oFile)
 			lines, err := reader.ReadAll()
 
 			if err != nil {

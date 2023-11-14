@@ -1,10 +1,31 @@
 # Quiz
 A quiz system implemented in go.
 
+# todo
+- [x] Add support for setting quiz timers 
+- [x] Add option to shuffle questions.
+- [x] refactor again
+- [x] Migrate to cobra instead of flags for arguments.
+- [x] finish adding support for file schema validators (CSV)
+- [x] Add support for generate command to generate boilerplate for inputting questions
+- [x] Add support for JSON question format/schema to support MCQ questions
+  - [x] only one answer correct schema
+  - [x] Multiple correct answers schema
+- [ ] finish implementing json validator
+- [ ] do something to pretty print json (implement the schema command)
+- [ ] Add support for nicer ui (using bubbles/bubbletea)
+- [ ] Add a better csv schema and generate command support for CSVs as well
+- [ ] Add support for per question time using tickers , display using progress bars
+- [ ] Add support to skip questions entirely
+- [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes that may be declared in conf or question decleration.
+- [ ] Add support to generate quiz reports
+- [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
+- [ ] Change filenames to snake_case from camelCase or MixedCase
+- [x] Unit Tests (optional)
 
 # Installation
 
-### Make sure you have go installed
+### Make sure you have [go](https://go.dev/) installed
 
 ### Clone the repo
     git clone https://github.com/theredditbandit/quiz.git

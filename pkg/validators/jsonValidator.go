@@ -1,11 +1,27 @@
 package validators
 
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"os"
+	"quiz/pkg/types"
+)
+
 func jsonValidator(jsonFile string) bool {
-	return true
-}
+	var problems []types.Problem
 
-type jsonSchemaType struct {
-	ToBeDetermined bool
-}
+	oFile, err := os.Open(jsonFile)
+	if err != nil {
+		return false
+	}
+	data, err := io.ReadAll(oFile)
+	if err != nil {
+		return false
+	}
+	err = json.Unmarshal(data, &problems)
 
-var JsonSchema jsonSchemaType
+	fmt.Printf("Data read :\n%+v\n", problems[1])
+	return err == nil
+
+}
