@@ -11,7 +11,7 @@ type Problem struct {
 	MCQAnswers       []string
 }
 
-// an error made by the user in answering the question
+// UserError represents an error made by the user in answering the question
 type UserError struct {
 	GivenProb Problem
 	UserAns   string
