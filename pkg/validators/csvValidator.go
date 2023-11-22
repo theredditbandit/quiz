@@ -2,20 +2,35 @@ package validators
 
 import (
 	"encoding/csv"
+	"fmt"
 	"os"
+	"quiz/pkg/customErrors"
+	"quiz/pkg/types"
 )
 
-func csvValidator(csvFile string) (bool, error) {
-	oFile, err := os.Open(csvFile)
-	if err != nil {
-		return false, err
-	}
-	defer oFile.Close()
+// csvValidator: validates the CSV file and returns a slice of the problems
+func csvValidator(oFile *os.File) (bool, []types.Problem, error) {
 	reader := csv.NewReader(oFile)
 	firstLine, err := reader.Read()
 	if err != nil {
-		return false, err
+		return false, nil, err
 	}
 
-	return len(firstLine) == 2, nil // if the first line has 2 columns then it is a valid csv
+	if len(firstLine) != 2 {
+		return false, nil, customErrors.ErrInvalidSchema
+	}
+	fmt.Println("CSV Schema is valid") // [ ] TODO  log.debug this in when logging is implemented
+	lines, err := reader.ReadAll()
+
+	if err != nil {
+		return true, nil, err
+	}
+
+	problems := make([]types.Problem, len(lines))
+	for idx, line := range lines {
+		problems[idx].Question = line[0] // line[0] is the question
+		problems[idx].Answer = line[1]   // line[1] is the answer
+	}
+
+	return true, problems, nil
 }
