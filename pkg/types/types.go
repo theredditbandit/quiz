@@ -9,6 +9,11 @@ type Problem struct {
 	Answer           string // leave blank if MCQ
 	Options          map[string]string
 	MCQAnswers       []string
+	IsTimed          bool
+	Time             TimeConf
+	MarksIfCorrect   int
+	MarksIfIncorrect int
+	Skippable        bool
 }
 
 // UserError represents an error made by the user in answering the question
