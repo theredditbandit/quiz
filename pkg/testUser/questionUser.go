@@ -71,7 +71,7 @@ func QuizTimer(tconf types.TimeConf) <-chan time.Time {
 			t = time.Duration(qtime) * time.Second
 		case "min":
 			t = time.Duration(qtime) * time.Minute
-		case "hour":
+		case "hr":
 			t = time.Duration(qtime) * time.Hour
 		}
 
