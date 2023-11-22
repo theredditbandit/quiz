@@ -1,4 +1,4 @@
-package filehandler
+package fileHandler
 
 import (
 	"encoding/json"
