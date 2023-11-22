@@ -3,8 +3,8 @@ package quiz
 import (
 	"fmt"
 	"math/rand"
-	customerrors "quiz/pkg/customErrors"
-	filehandler "quiz/pkg/fileHandler"
+	"quiz/pkg/customErrors"
+	"quiz/pkg/fileHandler"
 	"quiz/pkg/testUser"
 	"quiz/pkg/types"
 	"quiz/pkg/utils"
@@ -24,13 +24,13 @@ var testCmd = &cobra.Command{
 	Long:    "Takes either a CSV of format (question,answer) or a JSON file of format \nsee quiz help schema for more information", // [ ]  TODO:  format the `quiz help schema` as markdown using bubbles/tea
 	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		questions, err := filehandler.GetQuestions(args)
+		questions, err := fileHandler.GetQuestions(args)
 		if err != nil {
 
 			switch err {
-			case customerrors.ErrInvalidSchema:
+			case customErrors.ErrInvalidSchema:
 				utils.ExitWithMessage("Invalid Schema: Schema of provided file is not valid.", 1)
-			case customerrors.ErrInvalidFileType:
+			case customErrors.ErrInvalidFileType:
 				utils.ExitWithMessage("Invalid File type: only CSV and JSON file formats are supported.", 1)
 				cmd.Help()
 			default:
