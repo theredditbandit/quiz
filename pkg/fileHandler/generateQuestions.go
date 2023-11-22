@@ -6,8 +6,8 @@ import (
 	"quiz/pkg/types"
 )
 
-// GenBoilerplate function generates boilerplate JSON file for MCQ type questions
-func GenBoilerplate(n int, name string) error { // [ ] TODO: add a spinner maybe?
+// GenBoilerplate: generates boilerplate JSON file for MCQ type questions
+func GenBoilerplate(n int, name string) error {
 	schemas := make([]types.Problem, n)
 
 	for i := range schemas {
