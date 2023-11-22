@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	time               int
-	shuffle, min, hour bool
+	time             int
+	shuffle, min, hr bool
 )
 
 var testCmd = &cobra.Command{
@@ -33,6 +33,8 @@ var testCmd = &cobra.Command{
 			case customerrors.ErrInvalidFileType:
 				utils.ExitWithMessage("Invalid File type: only CSV and JSON file formats are supported.", 1)
 				cmd.Help()
+			default:
+				utils.ExitWithMessage(fmt.Sprintf("Unknown Error: %s", err), 1)
 			}
 		}
 		if shuffle {
@@ -41,7 +43,7 @@ var testCmd = &cobra.Command{
 			})
 		}
 
-		timeConf := handleTimeConf(time, min, hour)
+		timeConf := handleTimeConf(time, min, hr)
 		marks, err := testUser.QuestionUser(questions, timeConf, testUser.ConsoleReader, testUser.QuizTimer)
 		printMarksHandleErrors(marks, err, questions)
 	},
@@ -65,13 +67,14 @@ func printMarksHandleErrors(marks int, errors error, problems []types.Problem) {
 	}
 }
 
-func handleTimeConf(time int, min, hour bool) types.TimeConf {
+// defaults to second if no time format is provided
+func handleTimeConf(time int, min, hr bool) types.TimeConf {
 	tconf := types.TimeConf{Time: time, Unit: "sec"}
 
 	if min {
 		tconf.Unit = "min"
-	} else if hour {
-		tconf.Unit = "hour"
+	} else if hr {
+		tconf.Unit = "hr"
 	}
 	return tconf
 }
