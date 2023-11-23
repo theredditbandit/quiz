@@ -19,6 +19,5 @@
 
 # Go workspace file
 go.work
-.vscode/
 test.json
 problems.json
