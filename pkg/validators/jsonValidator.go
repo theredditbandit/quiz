@@ -37,7 +37,7 @@ func validate(p types.Problem) (map[int]string, bool) {
 		reason[p.QuestionNumber] = "Question number cannot be negative or zero"
 		return reason, false
 	}
-	if len(strings.TrimSpace(p.Question)) == 0 {
+	if strings.TrimSpace(p.Question) == "" {
 		reason[p.QuestionNumber] = "Question text cannot be empty"
 		return reason, false
 	}
@@ -45,7 +45,7 @@ func validate(p types.Problem) (map[int]string, bool) {
 		reason[p.QuestionNumber] = "MCQ type question cannot have answer specified, use Options instead"
 		return reason, false
 	} else if !p.IsMCQTypeQuestion {
-		if len(strings.TrimSpace(p.Answer)) == 0 {
+		if strings.TrimSpace(p.Answer) == "" {
 			reason[p.QuestionNumber] = "Non-MCQ type question must have answer specified"
 			return reason, false
 		} else if p.AllowMultipleAns {
@@ -80,14 +80,12 @@ func validate(p types.Problem) (map[int]string, bool) {
 			reason[p.QuestionNumber] = "Time value must be positive for timed questions"
 			return reason, false
 		}
-		if len(p.Time.Unit) == 0 {
+		if p.Time.Unit == "" {
 			reason[p.QuestionNumber] = "Defaulting to seconds for timed questions without unit specified"
 			return reason, true
-		} else {
-			if p.Time.Unit != "hr" && p.Time.Unit != "min" && p.Time.Unit != "sec" {
-				reason[p.QuestionNumber] = "Time unit must be 'hr', 'min' or 'sec' for timed questions"
-				return reason, false
-			}
+		} else if p.Time.Unit != "hr" && p.Time.Unit != "min" && p.Time.Unit != "sec" {
+			reason[p.QuestionNumber] = "Time unit must be 'hr', 'min' or 'sec' for timed questions"
+			return reason, false
 		}
 	}
 
