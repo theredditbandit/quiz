@@ -12,7 +12,7 @@ A quiz system implemented in go.
 - [x] Add support for JSON question format/schema to support MCQ questions
   - [x] only one answer correct schema
   - [x] Multiple correct answers schema
-- [ ] implement the json validator
+- [x] implement the json validator
   - [ ] Add unit tests for json validator
 - [ ] pretty print json schema (implement the schema command)
 - [ ] implement logging , get rid of print statements.
