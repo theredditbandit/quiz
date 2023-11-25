@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// Questionuser: takes in a problem array and total time limit prints the questions, returns marks and errors
+// Questionuser takes in a problem array and total time limit prints the questions, returns marks and errors
 func QuestionUser(questions []types.Problem, totalTime types.TimeConf, reader types.ReaderFunc, testTimer types.TimerFunc) (int, error) {
 	marks := 0
 	attempted := 0

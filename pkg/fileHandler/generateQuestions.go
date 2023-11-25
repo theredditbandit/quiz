@@ -6,7 +6,7 @@ import (
 	"quiz/pkg/types"
 )
 
-// GenBoilerplate: generates boilerplate JSON file for MCQ type questions
+// GenBoilerplate generates boilerplate JSON file for MCQ type questions
 func GenBoilerplate(n int, name string) error {
 	schemas := make([]types.Problem, n)
 

@@ -15,9 +15,9 @@ import (
 	"quiz/pkg/validators"
 )
 
-// GetQuestions: return a slice of Problem type and return InvalidFileType/InvalidSchema error if file type or schema is invalid
+// GetQuestions return a slice of Problem type and return InvalidFileType/InvalidSchema error if file type or schema is invalid
 func GetQuestions(args []string) ([]types.Problem, error) {
-	fname := args[0] //file name
+	fname := args[0] // file name
 	oFile, err := os.Open(fname)
 	if err != nil {
 		return nil, err
