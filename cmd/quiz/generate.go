@@ -2,7 +2,7 @@ package quiz
 
 import (
 	"fmt"
-	filehandler "quiz/pkg/fileHandler"
+	"quiz/pkg/fileHandler"
 	"quiz/pkg/utils"
 	"strconv"
 
@@ -23,7 +23,7 @@ var generateCmd = &cobra.Command{
 			utils.ExitWithMessage(fmt.Sprintf("Invalid argument %s: argument must be an integer", args[0]), 1)
 		}
 
-		err = filehandler.GenBoilerplate(n, name)
+		err = fileHandler.GenBoilerplate(n, name)
 		if err != nil {
 			utils.ExitWithMessage(fmt.Sprintf("Failed to generate boilerplate: %s", err.Error()), 1)
 		}

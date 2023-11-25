@@ -8,20 +8,26 @@ A quiz system implemented in go.
 - [x] Migrate to cobra instead of flags for arguments.
 - [x] finish adding support for file schema validators (CSV)
 - [x] Add support for generate command to generate boilerplate for inputting questions
+  - [ ] add example flag to the generate command that generates a valid example.json of 5 questions
 - [x] Add support for JSON question format/schema to support MCQ questions
   - [x] only one answer correct schema
   - [x] Multiple correct answers schema
-- [ ] finish implementing json validator
-- [ ] do something to pretty print json (implement the schema command)
+- [x] implement the json validator
+  - [ ] Add unit tests for json validator
+- [ ] pretty print json schema (implement the schema command)
+- [ ] implement logging , get rid of print statements.
+  - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
 - [ ] Add a better csv schema and generate command support for CSVs as well
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
-- [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes that may be declared in conf or question decleration.
-- [ ] Add support to generate quiz reports
-- [ ] Add support for reading configurations and question schemas from configuration files (ref spf13/viper)
+- [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes.
+- [ ] Add support to generate quiz reports.
+- [ ] implement auto generated gifs in the README using [VHS](https://github.com/charmbracelet/vhs)
+- [ ] Testing
+  - [ ] implement unit tests
+  - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
-- [x] Unit Tests (optional)
 
 # Installation
 

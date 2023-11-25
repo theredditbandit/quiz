@@ -1,16 +1,21 @@
 package validators
 
-import "quiz/pkg/utils"
+import (
+	"os"
+	"quiz/pkg/customErrors"
+	"quiz/pkg/types"
+	"quiz/pkg/utils"
+)
 
-// IsValid: returns true if schema of provided file matches supported csv schema
-func IsValid(file string) bool {
-	switch utils.GetFileType(file) {
+// IsValid validates and returns problems slice and schema errors if any
+func IsValid(openFile *os.File) ([]types.Problem, error) {
+	switch utils.GetFileType(openFile.Name()) {
 	case "csv":
-		return csvValidator(file)
+		return csvValidator(openFile)
 	case "json":
-		return jsonValidator(file)
+		return jsonValidator(openFile)
 	default:
-		return false
+		return nil, customErrors.ErrInvalidFileType
 	}
 
 }
