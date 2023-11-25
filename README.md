@@ -13,9 +13,9 @@ A quiz system implemented in go.
   - [x] only one answer correct schema
   - [x] Multiple correct answers schema
 - [ ] implement the json validator
+  - [ ] Add unit tests for json validator
 - [ ] pretty print json schema (implement the schema command)
 - [ ] implement logging , get rid of print statements.
-  - [ ] add debug statements
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
 - [ ] Add a better csv schema and generate command support for CSVs as well
