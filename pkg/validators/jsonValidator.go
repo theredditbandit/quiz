@@ -45,17 +45,8 @@ func validate(p types.Problem) (map[int]string, bool) {
 		reason[p.QuestionNumber] = "MCQ type question cannot have answer specified, use Options instead"
 		return reason, false
 	} else if !p.IsMCQTypeQuestion {
-		if strings.TrimSpace(p.Answer) == "" {
-			reason[p.QuestionNumber] = "Non-MCQ type question must have answer specified"
-			return reason, false
-		} else if p.AllowMultipleAns {
-			reason[p.QuestionNumber] = "Non-MCQ type question cannot allow multiple answers"
-			return reason, false
-		} else if len(p.Options) > 0 {
-			reason[p.QuestionNumber] = "Non-MCQ type question cannot have options specified"
-			return reason, false
-		} else if len(p.MCQAnswers) > 0 {
-			reason[p.QuestionNumber] = "Non-MCQ type question cannot have MCQ answers specified"
+		reason, isNonMCQValid := validateNonMCQ(p)
+		if !isNonMCQValid {
 			return reason, false
 		}
 	}
@@ -104,4 +95,22 @@ func getJsonData(oFile *os.File) ([]types.Problem, error) {
 		return nil, err
 	}
 	return problems, nil
+}
+
+func validateNonMCQ(p types.Problem) (map[int]string, bool) {
+	reason := make(map[int]string)
+	if strings.TrimSpace(p.Answer) == "" {
+		reason[p.QuestionNumber] = "Non-MCQ type question must have answer specified"
+		return reason, false
+	} else if p.AllowMultipleAns {
+		reason[p.QuestionNumber] = "Non-MCQ type question cannot allow multiple answers"
+		return reason, false
+	} else if len(p.Options) > 0 {
+		reason[p.QuestionNumber] = "Non-MCQ type question cannot have options specified"
+		return reason, false
+	} else if len(p.MCQAnswers) > 0 {
+		reason[p.QuestionNumber] = "Non-MCQ type question cannot have MCQ answers specified"
+		return reason, false
+	}
+	return nil, true
 }
