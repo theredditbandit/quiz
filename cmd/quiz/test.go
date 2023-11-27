@@ -21,7 +21,7 @@ var testCmd = &cobra.Command{
 	Use:     "test",
 	Aliases: []string{"tst", "t"},
 	Short:   "Takes a file containing the test questions as an argument.",
-	Long:    "Takes either a CSV of format (question,answer) or a JSON file of format \nsee quiz help schema for more information", // [ ]  TODO:  format the `quiz help schema` as markdown using bubbles/tea
+	Long:    "Takes either a CSV of format (question,answer) or a JSON file of format \nsee quiz help schema for more information",
 	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		questions, err := fileHandler.GetQuestions(args)
@@ -51,7 +51,7 @@ var testCmd = &cobra.Command{
 
 func init() {
 	testCmd.Flags().BoolVar(&shuffle, "shuffle", false, "Whether or not to shuffle the questions")
-	testCmd.Flags().IntVar(&time, "time", 0, "Time limit for the quiz , defaults to untimed quiz") // [ ] TODO: make this  configuratble via config file in the future.
+	testCmd.Flags().IntVar(&time, "time", 0, "Time limit for the quiz , defaults to untimed quiz")
 
 	rootCmd.AddCommand(testCmd)
 }
