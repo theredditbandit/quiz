@@ -8,7 +8,6 @@ A quiz system implemented in go.
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
-- [ ] Add a better csv schema and generate command support for CSVs as well
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
 - [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes.
@@ -16,7 +15,7 @@ A quiz system implemented in go.
 - [ ] implement auto generated gifs in the README using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Testing
   - [ ] Add unit tests for json validator
-- [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
+  - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
 </details>
 
