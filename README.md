@@ -5,7 +5,6 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
-- [ ] Add unit tests for json validator
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
@@ -16,8 +15,8 @@ A quiz system implemented in go.
 - [ ] Add support to generate quiz reports.
 - [ ] implement auto generated gifs in the README using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Testing
-  - [ ] implement unit tests
-  - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
+  - [ ] Add unit tests for json validator
+- [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
 </details>
 
