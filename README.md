@@ -1,20 +1,11 @@
 # Quiz
 A quiz system implemented in go.
 
-# todo
-- [x] Add support for setting quiz timers 
-- [x] Add option to shuffle questions.
-- [x] refactor again
-- [x] Migrate to cobra instead of flags for arguments.
-- [x] finish adding support for file schema validators (CSV)
-- [x] Add support for generate command to generate boilerplate for inputting questions
-  - [ ] add example flag to the generate command that generates a valid example.json of 5 questions
-- [x] Add support for JSON question format/schema to support MCQ questions
-  - [x] only one answer correct schema
-  - [x] Multiple correct answers schema
-- [x] implement the json validator
-  - [ ] Add unit tests for json validator
-- [ ] pretty print json schema (implement the schema command)
+<details open>
+<summary>todo</summary>
+
+# Features yet to be added
+- [ ] Add unit tests for json validator
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
@@ -28,6 +19,25 @@ A quiz system implemented in go.
   - [ ] implement unit tests
   - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
+</details>
+
+
+<details> 
+<summary>Done</summary>
+
+# Implemented Features
+- [x] Add support for setting quiz timers 
+- [x] Add option to shuffle questions.
+- [x] refactor again
+- [x] Migrate to cobra instead of flags for arguments.
+- [x] finish adding support for file schema validators (CSV)
+- [x] Add support for JSON question format/schema to support MCQ questions
+  - [x] only one answer correct schema
+  - [x] Multiple correct answers schema
+- [x] Add support for generate command to generate boilerplate for inputting questions
+- [x] add example flag to the generate command that generates a valid example.json of 5 questions
+- [x] implement the json validator
+</details>
 
 # Installation
 

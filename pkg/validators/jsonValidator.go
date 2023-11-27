@@ -30,7 +30,8 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 	return validProblems, &errInvalidProblems
 }
 
-// validate: validates a single problem and returns reason along with validity
+// validate validates a single problem and returns reason along with validity
+// sqipcq: GO-R1005
 func validate(p types.Problem) (map[int]string, bool) {
 	reason := make(map[int]string)
 	if p.QuestionNumber <= 0 {
@@ -97,6 +98,7 @@ func getJsonData(oFile *os.File) ([]types.Problem, error) {
 	return problems, nil
 }
 
+// validateNonMCQ validates a non-MCQ type question and returns reason along with validity
 func validateNonMCQ(p types.Problem) (map[int]string, bool) {
 	reason := make(map[int]string)
 	if strings.TrimSpace(p.Answer) == "" {

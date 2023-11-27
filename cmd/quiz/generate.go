@@ -32,6 +32,6 @@ var generateCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().StringVar(&name, "name", "problems", "Specify the name of the output file")
+	generateCmd.Flags().StringVar(&name, "name", "problems", "Specify the name of the output file")
 	rootCmd.AddCommand(generateCmd)
 }
