@@ -5,10 +5,7 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
-- [x] Add support for generate command to generate boilerplate for inputting questions
-- [ ] add example flag to the generate command that generates a valid example.json of 5 questions
-- [x] implement the json validator
-  - [ ] Add unit tests for json validator
+- [ ] Add unit tests for json validator
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
@@ -37,6 +34,9 @@ A quiz system implemented in go.
 - [x] Add support for JSON question format/schema to support MCQ questions
   - [x] only one answer correct schema
   - [x] Multiple correct answers schema
+- [x] Add support for generate command to generate boilerplate for inputting questions
+- [x] add example flag to the generate command that generates a valid example.json of 5 questions
+- [x] implement the json validator
 </details>
 
 # Installation
