@@ -1,6 +1,5 @@
 /*
 This package is responsible for reading the file provided by user
-  - determinig the file type and checking if the file type is supported (csv,json).
   - if the file type is supported it runs the schema validators and validates the file
     if the file is not of valid schema , it prints the error and exits.
   - if both checks pass it returns the questions

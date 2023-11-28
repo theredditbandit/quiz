@@ -9,6 +9,7 @@ type Problem struct {
 	Answer            string // not needed for MCQ questions
 	AllowMultipleAns  bool   // True if multiple answers allowed for MCQ type question
 	Options           map[string]string
+	ShuffleOptions    bool
 	MCQAnswers        []string
 	IsTimed           bool
 	Time              TimeConf

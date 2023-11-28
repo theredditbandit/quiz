@@ -5,6 +5,7 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
+- [ ] remove support for CSV based questions , completely migrate to json based question format
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
