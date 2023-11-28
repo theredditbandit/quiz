@@ -14,7 +14,7 @@ var name string
 var generateCmd = &cobra.Command{
 	Use:     "generate",
 	Aliases: []string{"gen", "g"},
-	Short:   "Generates boilerplate JSON for MCQ type questions",
+	Short:   "Generates boilerplate JSON for questions",
 	Long:    "Takes the number of questions to generate and generates a problems.json file",
 	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

@@ -12,7 +12,7 @@ import (
 
 var testCmd = &cobra.Command{
 	Use:     "test",
-	Aliases: []string{"tst", "t"},
+	Aliases: []string{"t"},
 	Short:   "Takes a file containing the test questions as an argument.",
 	Long:    "Takes a JSON file of format \nsee 'quiz help generate' or 'quiz help example' for more information",
 	Args:    cobra.ExactArgs(1),
