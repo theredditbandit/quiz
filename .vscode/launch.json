@@ -11,7 +11,6 @@
             "mode": "debug",
             "program": "/home/aryan/projects/quiz",
             "console": "integratedTerminal",
-            // "args": ["test","--shuffle","--time",10, "problems.csv" ]
             "args": ["test","problems.json"]
         }
     ]

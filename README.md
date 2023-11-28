@@ -5,18 +5,16 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
-- [ ] Add unit tests for json validator
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
-- [ ] Add a better csv schema and generate command support for CSVs as well
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
 - [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes.
 - [ ] Add support to generate quiz reports.
 - [ ] implement auto generated gifs in the README using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Testing
-  - [ ] implement unit tests
+  - [ ] Add unit tests for json validator
   - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Change filenames to snake_case from camelCase or MixedCase
 </details>
@@ -37,6 +35,7 @@ A quiz system implemented in go.
 - [x] Add support for generate command to generate boilerplate for inputting questions
 - [x] add example flag to the generate command that generates a valid example.json of 5 questions
 - [x] implement the json validator
+- [x] remove support for CSV based questions , completely migrate to json based question format
 </details>
 
 # Installation
