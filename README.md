@@ -5,7 +5,6 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
-- [ ] remove support for CSV based questions , completely migrate to json based question format
 - [ ] implement logging , get rid of print statements.
   - [ ] add debug and info flags to the rootCmd to set the log level
 - [ ] Add support for nicer ui (using bubbles/bubbletea)
@@ -36,6 +35,7 @@ A quiz system implemented in go.
 - [x] Add support for generate command to generate boilerplate for inputting questions
 - [x] add example flag to the generate command that generates a valid example.json of 5 questions
 - [x] implement the json validator
+- [x] remove support for CSV based questions , completely migrate to json based question format
 </details>
 
 # Installation
