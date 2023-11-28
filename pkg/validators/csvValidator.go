@@ -27,6 +27,7 @@ func csvValidator(oFile *os.File) ([]types.Problem, error) {
 	for idx, line := range lines {
 		problems[idx].Question = line[0] // line[0] is the question
 		problems[idx].Answer = line[1]   // line[1] is the answer
+		problems[idx].IsMCQTypeQuestion = false
 	}
 	return problems, nil
 }
