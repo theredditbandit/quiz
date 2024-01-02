@@ -86,7 +86,7 @@ func validate(p types.Problem) (map[int]string, bool) {
 		}
 	}
 
-	if p.DisplayExplanation && (len(strings.TrimSpace(p.Explanation)) == 0 && len(strings.TrimSpace(p.Reference)) == 0) {
+	if p.DisplayExplanation && (strings.TrimSpace(p.Explanation) == "" && strings.TrimSpace(p.Reference) == "") {
 		reason[p.QuestionNumber] = "Explanation field cannot be empty if it's to be displayed"
 		return reason, false
 	}
