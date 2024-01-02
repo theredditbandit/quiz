@@ -18,11 +18,15 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 		return nil, err
 	}
 	var errInvalidProblems customErrors.ErrInvalidProblems
-	for _, p := range problems {
+	var warnings customErrors.ErrInvalidProblems // maybe show the warnings in the ui after questions are evaluated?
+	for _, p := range problems {                 // TODO: Update this to print the warnings/success messages at once after all questions have been evaluated
 		reason, isValid := validate(p)
 		if !isValid {
 			errInvalidProblems.InvalidQuestions = append(errInvalidProblems.InvalidQuestions, reason)
 		} else {
+			if len(reason) != 0 { // we only get here when the question is valid but some string is returned in the reason
+				warnings.InvalidQuestions = append(warnings.InvalidQuestions, reason)
+			}
 			fmt.Printf("Q%d is valid \n", p.QuestionNumber)
 			validProblems = append(validProblems, p)
 		}
@@ -34,6 +38,7 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 // sqipcq: GO-R1005
 func validate(p types.Problem) (map[int]string, bool) {
 	reason := make(map[int]string)
+
 	if p.QuestionNumber <= 0 {
 		reason[p.QuestionNumber] = "Question number cannot be negative or zero"
 		return reason, false
@@ -74,13 +79,25 @@ func validate(p types.Problem) (map[int]string, bool) {
 		}
 		if p.Time.Unit == "" {
 			reason[p.QuestionNumber] = "Defaulting to seconds for timed questions without unit specified"
-			return reason, true
+			return reason, true // warning
 		} else if p.Time.Unit != "hr" && p.Time.Unit != "min" && p.Time.Unit != "sec" {
 			reason[p.QuestionNumber] = "Time unit must be 'hr', 'min' or 'sec' for timed questions"
 			return reason, false
 		}
 	}
 
+	if p.DisplayExplanation && (len(strings.TrimSpace(p.Explanation)) == 0 && len(strings.TrimSpace(p.Reference)) == 0) {
+		reason[p.QuestionNumber] = "Explanation field cannot be empty if it's to be displayed"
+		return reason, false
+	}
+	if !p.DisplayExplanation && len(strings.TrimSpace(p.Explanation)) > 0 {
+		reason[p.QuestionNumber] = "Ignoring Explanation: DisplayExplanation set to false but Explanation provided"
+		return reason, true // warning
+	}
+	if !p.DisplayExplanation && len(strings.TrimSpace(p.Reference)) > 0 {
+		reason[p.QuestionNumber] = "Ignoring Reference: DisplayExplanation set to false but Reference(s) provided"
+		return reason, true // warning
+	}
 	return nil, true
 }
 
