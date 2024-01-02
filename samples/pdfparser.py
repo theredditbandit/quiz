@@ -1,3 +1,4 @@
+# the purpose of this program is to convert the questions in aws.pdf into json accepted by quiz
 from PyPDF2 import PdfReader
 
 
