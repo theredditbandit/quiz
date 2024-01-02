@@ -5,9 +5,7 @@ A quiz system implemented in go.
 <summary>todo</summary>
 
 # Features yet to be added
-- [ ] implement logging , get rid of print statements.
-  - [ ] add debug and info flags to the rootCmd to set the log level
-- [ ] Add support for nicer ui (using bubbles/bubbletea)
+- [ ] Add a UI using charm ecosystem (bubbles ,bubbletea , huh, lipgloss) 
 - [ ] Add support for per question time using tickers , display using progress bars
 - [ ] Add support to skip questions entirely
 - [ ] Add support to supply individual question marks , negative marks and different/custom marking schemes.

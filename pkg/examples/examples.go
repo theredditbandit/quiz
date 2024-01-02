@@ -22,6 +22,9 @@ func GenExamples() error {
 	q1.MarksIfCorrect = 4
 	q1.MarksIfIncorrect = -1
 	q1.Skippable = false
+	q1.DisplayExplanation = true
+	q1.Explanation = "2+2 is 4 , trust me bro"
+	q1.Reference = "refer https://en.wikipedia.org/wiki/2_%2B_2_%3D_"
 	exampleQuestions = append(exampleQuestions, q1)
 
 	var q2 types.Problem
@@ -35,6 +38,7 @@ func GenExamples() error {
 	q2.MarksIfCorrect = 4
 	q2.MarksIfIncorrect = -1
 	q2.Skippable = true
+	q2.DisplayExplanation = false
 	exampleQuestions = append(exampleQuestions, q2)
 
 	var q3 types.Problem
@@ -48,6 +52,8 @@ func GenExamples() error {
 	q3.Time.Time = 10
 	q3.Time.Unit = "sec"
 	q3.Skippable = false
+	q3.DisplayExplanation = true
+	q3.Reference = "reference https://en.wikipedia.org/wiki/Square_root"
 	exampleQuestions = append(exampleQuestions, q3)
 
 	jsonData, err := json.MarshalIndent(exampleQuestions, "", "    ")

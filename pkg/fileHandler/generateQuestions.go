@@ -18,6 +18,9 @@ func GenBoilerplate(n int, name string) error {
 		schemas[i].Answer = "Ignore this field if the question is MCQ"
 		schemas[i].Options = map[string]string{"a": "change this , add more options as needed for MCQ questions", "b": "delete both options if question is a NOT an MCQ question."}
 		schemas[i].MCQAnswers = []string{"a"}
+		schemas[i].Explanation = "Add explanation and references(in the reference section) to be showed if question is incorrect and if DisplayExplanation is true"
+		schemas[i].Reference = ""
+		schemas[i].DisplayExplanation = false
 	}
 
 	jsonData, err := json.MarshalIndent(schemas, "", "    ")
