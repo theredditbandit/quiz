@@ -11,3 +11,6 @@ var GreatSuccess = lipgloss.NewStyle().
 var MuchWarning = lipgloss.NewStyle().
 	Bold(true).
 	Foreground(lipgloss.Color("184"))
+var NormalText = lipgloss.NewStyle().
+	Bold(true).
+	Foreground(lipgloss.Color("86"))

@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"quiz/pkg/colors"
 	"quiz/pkg/customErrors"
 	"quiz/pkg/types"
+	"strconv"
 	"strings"
 	"time"
 
@@ -17,6 +19,7 @@ import (
 func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 	probChan := make(chan []types.Problem, 2)
 	errChan := make(chan error, 2)
+	validationSummary := make(chan string, 2)
 	problems, err := getJsonData(oFile) //TODO : maybe add logic to ask if warnings/errors need to be shown
 	validator := func() {
 		time.Sleep(1 * time.Second)
@@ -38,12 +41,22 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 				validProblems = append(validProblems, p)
 			}
 		}
-		//fmt.Println(len(validProblems)) // total number of questions
+		correctQuestions := strconv.Itoa(len(validProblems))
+		incorrectQuestions := strconv.Itoa(len(errorsAndWarnings.InvalidQuestions))
+		warnings := strconv.Itoa(len(errorsAndWarnings.Warnings))
+		if incorrectQuestions == "0" && warnings == "0" {
+			validationSummary <- fmt.Sprintf(colors.GreatSuccess.Render("All" + correctQuestions + " questions are valid ✅"))
+		} else {
+			validationSummary <- fmt.Sprintf("There's %v , %v and %v",
+				colors.GreatSuccess.Render(correctQuestions+" Correct Question(s)"),
+				colors.GraveError.Render(incorrectQuestions+" Incorrect Question(s)"),
+				colors.MuchWarning.Render(warnings+" Warning(s)"))
+		}
 		probChan <- validProblems
 		errChan <- &errorsAndWarnings
 	}
 	_ = spinner.New().Title("Validating questions . . .").Action(validator).Run()
-	fmt.Println("Validated")
+	fmt.Println(<-validationSummary)
 	return <-probChan, <-errChan //FIX : why are we returning the error ?
 }
 
