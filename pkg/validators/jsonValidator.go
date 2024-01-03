@@ -8,35 +8,48 @@ import (
 	"quiz/pkg/customErrors"
 	"quiz/pkg/types"
 	"strings"
+	"time"
+
+	"github.com/charmbracelet/huh/spinner"
 )
 
 // jsonValidator: returns true if at least one of the questions supplied has a valid schema , false otherwise. error contains the first validation error encountered.
 func jsonValidator(oFile *os.File) ([]types.Problem, error) {
-	problems, err := getJsonData(oFile)
-	validProblems := make([]types.Problem, 0)
-	if err != nil {
-		return nil, err
-	}
-	var errInvalidProblems customErrors.ErrInvalidProblems
-	var warnings customErrors.ErrInvalidProblems // maybe show the warnings in the ui after questions are evaluated?
-	for _, p := range problems {                 // TODO: Update this to print the warnings/success messages at once after all questions have been evaluated
-		reason, isValid := validate(p)
-		if !isValid {
-			errInvalidProblems.InvalidQuestions = append(errInvalidProblems.InvalidQuestions, reason)
-		} else {
-			if len(reason) != 0 { // we only get here when the question is valid but some string is returned in the reason
-				warnings.InvalidQuestions = append(warnings.InvalidQuestions, reason)
-			}
-			fmt.Printf("Q%d is valid \n", p.QuestionNumber)
-			validProblems = append(validProblems, p)
+	probChan := make(chan []types.Problem, 2)
+	errChan := make(chan error, 2)
+	problems, err := getJsonData(oFile) //TODO : maybe add logic to ask if warnings/errors need to be shown
+	validator := func() {
+		time.Sleep(1 * time.Second)
+		validProblems := make([]types.Problem, 0)
+		if err != nil {
+			probChan <- nil
+			errChan <- err
 		}
+		var errorsAndWarnings customErrors.ErrInvalidProblems
+		for _, p := range problems {
+			reason, isValid := validateOne(p)
+			if !isValid {
+				errorsAndWarnings.InvalidQuestions = append(errorsAndWarnings.InvalidQuestions, reason)
+			} else {
+				if len(reason) != 0 { // we only get here when the question is valid but some string is returned in the reason
+					errorsAndWarnings.Warnings = append(errorsAndWarnings.Warnings, reason)
+				}
+				//				fmt.Printf("Q%d is valid \n", p.QuestionNumber)
+				validProblems = append(validProblems, p)
+			}
+		}
+		//fmt.Println(len(validProblems)) // total number of questions
+		probChan <- validProblems
+		errChan <- &errorsAndWarnings
 	}
-	return validProblems, &errInvalidProblems
+	_ = spinner.New().Title("Validating questions . . .").Action(validator).Run()
+	fmt.Println("Validated")
+	return <-probChan, <-errChan //FIX : why are we returning the error ?
 }
 
-// validate validates a single problem and returns reason along with validity
+// validateOne validates a single problem and returns reason along with validity
 // sqipcq: GO-R1005
-func validate(p types.Problem) (map[int]string, bool) {
+func validateOne(p types.Problem) (map[int]string, bool) {
 	reason := make(map[int]string)
 
 	if p.QuestionNumber <= 0 {

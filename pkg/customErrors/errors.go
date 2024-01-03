@@ -10,6 +10,7 @@ var ErrInvalidFileType = errors.New("invalidFileType")
 
 type ErrInvalidProblems struct {
 	InvalidQuestions []map[int]string
+	Warnings         []map[int]string
 }
 
 func (e *ErrInvalidProblems) Error() string {
