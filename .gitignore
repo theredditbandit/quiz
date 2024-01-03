@@ -19,8 +19,7 @@
 
 # Go workspace file
 go.work
-test.json
-problems.json# Created by https://www.toptal.com/developers/gitignore/api/python
+# Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 ### Python ###
@@ -196,4 +195,8 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+# workspace specific
+test.json
+problems.json
+examples.json
 aws.pdf
