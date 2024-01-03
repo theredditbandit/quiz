@@ -19,7 +19,7 @@ func testNonMCQ(p types.Problem) int {
 		Validate(func(ans string) error {
 			if strings.TrimSpace(ans) != strings.TrimSpace(p.Answer) {
 				answeredCorrectly = false
-				return fmt.Errorf("That's incorrect.\n The correct answer is %v", p.Answer)
+				return fmt.Errorf("that's incorrect.\nthe correct answer is %v", p.Answer)
 			}
 			return nil
 		}).
