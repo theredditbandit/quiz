@@ -18,11 +18,11 @@ import (
 // jsonValidator: returns true if at least one of the questions supplied has a valid schema , false otherwise. error contains the first validation error encountered.
 func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 	probChan := make(chan []types.Problem, 2)
-	errChan := make(chan error, 2)
+	errChan := make(chan error, 3)
 	validationSummary := make(chan string, 2)
-	problems, err := getJsonData(oFile) //TODO : maybe add logic to ask if warnings/errors need to be shown
-	validator := func() {
-		time.Sleep(1 * time.Second)
+	problems, err := getJsonData(oFile)
+	validator := func() { // NOTE : Maybe move this function to another file ?
+		time.Sleep(1 * time.Second) // PERF : sleeping because I worked hard to implement the spinner and I want to see it
 		validProblems := make([]types.Problem, 0)
 		if err != nil {
 			probChan <- nil
@@ -34,10 +34,9 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 			if !isValid {
 				errorsAndWarnings.InvalidQuestions = append(errorsAndWarnings.InvalidQuestions, reason)
 			} else {
-				if len(reason) != 0 { // we only get here when the question is valid but some string is returned in the reason
+				if len(reason) != 0 { // we only get here when the question is valid but a reason is still returned
 					errorsAndWarnings.Warnings = append(errorsAndWarnings.Warnings, reason)
 				}
-				//				fmt.Printf("Q%d is valid \n", p.QuestionNumber)
 				validProblems = append(validProblems, p)
 			}
 		}
@@ -45,7 +44,8 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 		incorrectQuestions := strconv.Itoa(len(errorsAndWarnings.InvalidQuestions))
 		warnings := strconv.Itoa(len(errorsAndWarnings.Warnings))
 		if incorrectQuestions == "0" && warnings == "0" {
-			validationSummary <- fmt.Sprintf(colors.GreatSuccess.Render("All" + correctQuestions + " questions are valid ✅"))
+			validationSummary <- fmt.Sprintf(colors.GreatSuccess.Render("All " + correctQuestions + " questions are valid ✅"))
+			errChan <- nil // as there are no validation errors or warnings
 		} else {
 			validationSummary <- fmt.Sprintf("There's %v , %v and %v",
 				colors.GreatSuccess.Render(correctQuestions+" Correct Question(s)"),
@@ -57,7 +57,7 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 	}
 	_ = spinner.New().Title("Validating questions . . .").Action(validator).Run()
 	fmt.Println(<-validationSummary)
-	return <-probChan, <-errChan //FIX : why are we returning the error ?
+	return <-probChan, <-errChan
 }
 
 // validateOne validates a single problem and returns reason along with validity
