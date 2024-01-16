@@ -13,7 +13,6 @@ A quiz system implemented in go.
 - [ ] Add support for client server model with auth so people can authenticate with the server and then get questions from the server and also marks are sent back to the server securely
 - [ ] implement auto generated gifs in the README using [VHS](https://github.com/charmbracelet/vhs)
 - [ ] Testing
-  - [ ] Add unit tests for json validator
   - [ ] implement integration testing using [VHS](https://github.com/charmbracelet/vhs)
 </details>
 
