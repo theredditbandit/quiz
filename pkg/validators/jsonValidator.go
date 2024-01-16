@@ -64,7 +64,9 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 // sqipcq: GO-R1005
 func validateOne(p types.Problem) (map[int]string, bool) {
 	reason := make(map[int]string)
-
+	// TODO : potential more configuration options for questions
+	// - number of times a question can be attempted
+	// - whether to show hints or not
 	if p.QuestionNumber <= 0 {
 		reason[p.QuestionNumber] = "Question number cannot be negative or zero"
 		return reason, false
