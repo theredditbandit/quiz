@@ -9,9 +9,12 @@ package fileHandler
 import (
 	"fmt"
 	"os"
+	"quiz/pkg/colors"
 	"quiz/pkg/customErrors"
 	"quiz/pkg/types"
+	"quiz/pkg/utils"
 	"quiz/pkg/validators"
+	"strconv"
 )
 
 // GetQuestions return a slice of Problem type and return InvalidFileType/InvalidSchema error if file type or schema is invalid
@@ -24,14 +27,27 @@ func GetQuestions(args []string) ([]types.Problem, error) {
 	defer oFile.Close()
 	problems, err := validators.IsValid(oFile)
 	if err != nil {
-		if schemaErrors, ok := err.(*customErrors.ErrInvalidProblems); ok {
-			for _, reason := range schemaErrors.InvalidQuestions {
-				for qno, r := range reason {
-					fmt.Printf("Disregarding question %d because %s\n", qno, r)
+		if utils.PrintErrorsAndWarnings() {
+			if schemaErrors, ok := err.(*customErrors.ErrInvalidProblems); ok {
+				for _, reason := range schemaErrors.InvalidQuestions {
+					for qno, r := range reason {
+						q := strconv.Itoa(qno)
+						fmt.Println(
+							colors.GraveError.Render("Disregarding question "+q+" because :\n",
+								colors.NormalText.Render(r)))
+					}
 				}
+				for _, reason := range schemaErrors.Warnings {
+					for qno, r := range reason {
+						q := strconv.Itoa(qno)
+						fmt.Println(
+							colors.MuchWarning.Render("Warning for Question "+q+" : \n",
+								colors.NormalText.Render(r)))
+					}
+				}
+			} else {
+				return nil, err
 			}
-		} else {
-			return nil, err
 		}
 	}
 	if len(problems) == 0 {

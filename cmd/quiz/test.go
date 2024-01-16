@@ -24,7 +24,10 @@ var testCmd = &cobra.Command{
 				utils.ExitWithMessage("Invalid Schema: Schema of provided file is not valid.", 1)
 			case customErrors.ErrInvalidFileType:
 				utils.ExitWithMessage("Invalid File type: only JSON file format is supported.", 1)
-				cmd.Help()
+				err := cmd.Help()
+				if err != nil {
+					utils.ExitWithMessage(fmt.Sprintf("Something went wrong '%s'\n", err), 1)
+				}
 			default:
 				utils.ExitWithMessage(fmt.Sprintf("Unknown Error: %s", err), 1)
 			}

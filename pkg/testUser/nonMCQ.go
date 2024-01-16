@@ -9,23 +9,22 @@ import (
 )
 
 // testNonMCQ function responsible for taking a non mcq type problem and questioning the user and returning the marks and user error if any
-func testNonMCQ(p types.Problem) int {
+func testNonMCQ(p types.Problem) *huh.Group {
 	var ans string
-	answeredCorrectly := true
-	huh.NewInput().
+	// answeredCorrectly := true // TODO : Reimplement this so marks are written to a channel
+	input := huh.NewInput().
 		Title(p.Question).
 		Prompt(">> ").
 		Value(&ans).
 		Validate(func(ans string) error {
+			if strings.TrimSpace(ans) == "" {
+				return nil // this allows to cycle back and forth between questions
+			}
 			if strings.TrimSpace(ans) != strings.TrimSpace(p.Answer) {
-				answeredCorrectly = false
-				return fmt.Errorf("that's incorrect.\nthe correct answer is %v", p.Answer)
+				// answeredCorrectly = false
+				return fmt.Errorf("%v is incorrect.\nthe correct answer is %v", ans, p.Answer)
 			}
 			return nil
-		}).
-		Run()
-	if answeredCorrectly {
-		return p.MarksIfCorrect
-	}
-	return p.MarksIfIncorrect
+		})
+	return huh.NewGroup(input)
 }
