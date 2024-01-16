@@ -105,6 +105,10 @@ func validateOne(p types.Problem) (map[int]string, bool) {
 			reason[p.QuestionNumber] = "Time value must be positive for timed questions"
 			return reason, false
 		}
+		if p.Skippable {
+			reason[p.QuestionNumber] = "Timed questions cannot be declared skippable"
+			return reason, false
+		}
 		if p.Time.Unit == "" {
 			reason[p.QuestionNumber] = "Defaulting to seconds for timed questions without unit specified"
 			return reason, true // warning
