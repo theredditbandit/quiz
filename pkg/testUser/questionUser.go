@@ -1,9 +1,10 @@
 package testUser
 
 import (
-	"quiz/pkg/types"
-
+	"fmt"
 	"github.com/charmbracelet/huh"
+	"quiz/pkg/types"
+	"quiz/pkg/utils"
 )
 
 // Questionuser takes in a problem array and total time limit prints the questions, returns marks and errors
@@ -19,5 +20,8 @@ func QuestionUser(questions []types.Problem) {
 			formQ = append(formQ, q)
 		}
 	}
-	huh.NewForm(formQ...).Run()
+	err := huh.NewForm(formQ...).Run()
+	if err != nil {
+		utils.ExitWithMessage(fmt.Sprintf("TODO Check the error for 'user aborted' message and then ask whether to retry/review/print result etc. . .\n'%T'\n", err), 1)
+	}
 }

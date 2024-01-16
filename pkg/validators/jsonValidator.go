@@ -44,7 +44,7 @@ func jsonValidator(oFile *os.File) ([]types.Problem, error) {
 		incorrectQuestions := strconv.Itoa(len(errorsAndWarnings.InvalidQuestions))
 		warnings := strconv.Itoa(len(errorsAndWarnings.Warnings))
 		if incorrectQuestions == "0" && warnings == "0" {
-			validationSummary <- fmt.Sprintf(colors.GreatSuccess.Render("All " + correctQuestions + " questions are valid ✅"))
+			validationSummary <- colors.GreatSuccess.Render("All " + correctQuestions + " questions are valid ✅")
 			errChan <- nil // as there are no validation errors or warnings
 		} else {
 			validationSummary <- fmt.Sprintf("There's %v , %v and %v",

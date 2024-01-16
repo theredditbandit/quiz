@@ -12,7 +12,10 @@ var rootCmd = &cobra.Command{
 	Long:    "A quiz application that reads the questions from a JSON file,with support for Question andwer type problems or MCQ problems",
 	Version: "1.0.0",
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Help()
+		if err != nil {
+			utils.ExitWithMessage(fmt.Sprintf("Something went wrong '%s'\n", err), 1)
+		}
 	},
 }
 

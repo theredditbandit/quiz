@@ -18,6 +18,6 @@ var NormalText = lipgloss.NewStyle().
 	Bold(true).
 	Foreground(lipgloss.Color("86"))
 
-var helpStyle = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#626262")).
-	Render
+	// var HelpStyle = lipgloss.NewStyle().
+	// 	Foreground(lipgloss.Color("#626262")).
+	// 	Render
