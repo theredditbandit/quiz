@@ -24,9 +24,9 @@ func testNonMCQ(p types.Problem) *huh.Group {
 				if !p.Skippable && strings.TrimSpace(ans) == "" {
 					return fmt.Errorf("cannot skip this question")
 				}
-				return fmt.Errorf("%v is incorrect.\nthe correct answer is %v", ans, p.Answer)
+				return fmt.Errorf("%v is incorrect.\nThe correct answer is %v.\nExplanation : %v\nReference : %v", ans, p.Answer, p.Explanation, p.Reference)
 			}
 			return nil
 		})
-	return huh.NewGroup(input)
+	return huh.NewGroup(input).WithShowErrors(p.DisplayExplanation)
 }
