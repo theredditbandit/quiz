@@ -6,7 +6,7 @@ require (
 	github.com/charmbracelet/huh v0.4.2
 	github.com/charmbracelet/huh/spinner v0.0.0-20231222231237-4bd4657a36ac
 	github.com/charmbracelet/lipgloss v0.11.0
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 )
 
 require (
